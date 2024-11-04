@@ -1,4 +1,4 @@
-package use_case.note;
+package use_cases.note;
 
 /**
  * The output boundary for the Login Use Case.

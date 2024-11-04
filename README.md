@@ -1,7 +1,9 @@
 # Note Application
 
 Team member  ---- GitHub username
-1. Iguehi Akhimien ---- iguehi-akhimien 
+1. Iguehi Akhimien - iguehi-akhimien 
+2. Jenna Zhang - stickycorner 
+3. Prisha Patel - PrishaPatel24
 
 
 **User stories**: 
@@ -9,3 +11,4 @@ Team member  ---- GitHub username
 2. As a user, I want to ask the system to suggest ideas to complete my note.
 3. As a user, I want to retrieve an already existing note. 
 4. As a user, I want to delete a note. 
+
