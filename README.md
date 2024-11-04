@@ -1,5 +1,8 @@
 # Note Application
 
+Team member  ---- GitHub username
+1. Iguehi Akhimien ---- iguehi-akhimien
+
 This is a minimal example demonstrating usage of the
 password-protected user part of the API used in lab 5.
 
