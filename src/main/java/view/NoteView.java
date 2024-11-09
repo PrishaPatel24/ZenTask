@@ -28,9 +28,9 @@ public class NoteView extends JPanel implements ActionListener, PropertyChangeLi
     private final JTextArea noteInput = new JTextArea();
 
     private final JButton saveButton = new JButton("Save");
+    private final JButton saveAsButton = new JButton("Save As");
     private final JButton viewButtton = new JButton("View");
     private final JButton deleteButton = new JButton("Delete");
-    private final JButton uploadButton = new JButton("Upload");
 
     private NoteController noteController;
 
@@ -44,9 +44,9 @@ public class NoteView extends JPanel implements ActionListener, PropertyChangeLi
 
         final JPanel buttons = new JPanel();
         buttons.add(saveButton);
+        buttons.add(saveAsButton);
         buttons.add(viewButtton);
         buttons.add(deleteButton);
-        buttons.add(uploadButton);
 
         saveButton.addActionListener(
                 evt -> {
@@ -54,13 +54,13 @@ public class NoteView extends JPanel implements ActionListener, PropertyChangeLi
                         final JFileChooser fileChooser = new JFileChooser();
                         fileChooser.setDialogTitle("Save Note");
                         fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-                        final int returnVal = fileChooser.showOpenDialog(this);
+                        final int returnVal = fileChooser.showSaveDialog(this);
                         if (returnVal == JFileChooser.APPROVE_OPTION) {
-                            final File file = fileChooser.getSelectedFile();
                             try {
-                                if (file.exists()) {
-                                    final BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-                                    writer.write(noteInput.getText());
+                                final File selectedFile = fileChooser.getSelectedFile();
+                                if (selectedFile.exists()) {
+                                    final FileWriter writer = new FileWriter(selectedFile);
+                                    writer.write("Hello");
                                 }
                             }
                             catch (IOException e) {
