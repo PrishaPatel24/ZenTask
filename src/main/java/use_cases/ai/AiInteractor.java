@@ -15,7 +15,7 @@ public class AiInteractor {
     // decide on functions for the calendar, load events, oauth 2 login, edit/modify events?
 
     AiInteractor(AiInputBoundary aiInputBoundary, AiOutputBoundary aiOutputBoundary) {
-        this.key = "AIzaSyA5NGM5lAXTTPbdzgtBssW2Xg27kg0gDa4";
+        this.key = "";
         this.aiInputBoundary = aiInputBoundary;
         this.aiOutputBoundary = aiOutputBoundary;
     }
