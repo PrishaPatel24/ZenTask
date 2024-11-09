@@ -5,13 +5,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
+import javax.swing.*;
 
 import interface_adapter.note.NoteController;
 import interface_adapter.note.NoteState;
@@ -24,11 +24,14 @@ public class NoteView extends JPanel implements ActionListener, PropertyChangeLi
 
     private final NoteViewModel noteViewModel;
 
-    private final JLabel noteName = new JLabel("note for jonathan_calver2");
-    private final JTextArea noteInputField = new JTextArea();
+    private final JLabel noteName = new JLabel("Actions");
+    private final JTextArea noteInput = new JTextArea();
 
     private final JButton saveButton = new JButton("Save");
-    private final JButton refreshButton = new JButton("Refresh");
+    private final JButton viewButtton = new JButton("View");
+    private final JButton deleteButton = new JButton("Delete");
+    private final JButton uploadButton = new JButton("Upload");
+
     private NoteController noteController;
 
     public NoteView(NoteViewModel noteViewModel) {
@@ -36,25 +39,67 @@ public class NoteView extends JPanel implements ActionListener, PropertyChangeLi
         noteName.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.noteViewModel = noteViewModel;
         this.noteViewModel.addPropertyChangeListener(this);
+        noteInput.setText(" ");
+        add(noteInput);
 
         final JPanel buttons = new JPanel();
         buttons.add(saveButton);
-        buttons.add(refreshButton);
+        buttons.add(viewButtton);
+        buttons.add(deleteButton);
+        buttons.add(uploadButton);
 
         saveButton.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(saveButton)) {
-                        noteController.execute(noteInputField.getText());
+                        final JFileChooser fileChooser = new JFileChooser();
+                        fileChooser.setDialogTitle("Save Note");
+                        fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+                        final int returnVal = fileChooser.showOpenDialog(this);
+                        if (returnVal == JFileChooser.APPROVE_OPTION) {
+                            final File file = fileChooser.getSelectedFile();
+                            try {
+                                if (file.exists()) {
+                                    final BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+                                    writer.write(noteInput.getText());
+                                }
+                            }
+                            catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                        noteController.execute(noteInput.getText());
 
                     }
                 }
         );
 
-        refreshButton.addActionListener(
+        deleteButton.addActionListener(
                 evt -> {
-                    if (evt.getSource().equals(refreshButton)) {
-                        noteController.execute(null);
+                    if (evt.getSource().equals(deleteButton)) {
+                        noteInput.setText("");
+                    }
+                }
+        );
 
+        viewButtton.addActionListener(
+                evt -> {
+                    if (evt.getSource().equals(viewButtton)) {
+                        final JFileChooser fileChooser = new JFileChooser();
+                        fileChooser.setDialogTitle("View");
+                        fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+                        final int returnVal = fileChooser.showOpenDialog(this);
+                        if (returnVal == JFileChooser.APPROVE_OPTION) {
+                            try {
+                                String text = " ";
+                                for (String line : Files.readAllLines(fileChooser.getSelectedFile().toPath())) {
+                                    text += line + "\n";
+                                    noteInput.setText(text);
+                                }
+                            }
+                            catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
                     }
                 }
         );
@@ -62,7 +107,7 @@ public class NoteView extends JPanel implements ActionListener, PropertyChangeLi
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(noteName);
-        this.add(noteInputField);
+        this.add(noteInput);
         this.add(buttons);
     }
 
@@ -85,7 +130,7 @@ public class NoteView extends JPanel implements ActionListener, PropertyChangeLi
     }
 
     private void setFields(NoteState state) {
-        noteInputField.setText(state.getNote());
+        noteInput.setText(state.getNote());
     }
 
     public void setNoteController(NoteController controller) {
