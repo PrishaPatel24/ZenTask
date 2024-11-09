@@ -6,26 +6,26 @@ package entity;
 public class Task {
 
     private final String description;
-    private boolean done;
+    private boolean checked;
 
     public Task(String description) {
         this.description = description;
-        this.done = false;
+        this.checked = false;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public boolean isDone() {
-        return done;
+    public boolean isChecked() {
+        return checked;
     }
 
     /**
      * Marks the task as completed.
      */
-    public void markDone() {
-        done = true;
+    public void markChecked() {
+        checked = true;
     }
 
 }

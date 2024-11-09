@@ -17,38 +17,73 @@ import java.beans.PropertyChangeListener;
 public class ChecklistView extends JPanel implements ActionListener, PropertyChangeListener {
 
     private final TaskViewModel taskViewModel;
-
-    private final JLabel title = new JLabel("Title:");
-    private final JTextArea titleInputField = new JTextArea();
-
-    private final JTextArea taskInputField = new JTextArea();
-    private final JButton checkbox = new JButton();
-
     private AddTaskController addTaskController;
 
+    private final JPanel checklistPanel;
+    private final JButton addTaskButton;
+    private final JTextArea taskInputField;
+
+
     public ChecklistView(TaskViewModel taskViewModel) {
+        this.checklistPanel = new JPanel();
+        this.addTaskButton = new JButton("Add Task +");
+        this.taskInputField = new JTextArea();
+        taskInputField.setSize(10, 10);
+        taskInputField.setVisible(false);
 
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
-        this.taskViewModel = taskViewModel;
-        this.taskViewModel.addPropertyChangeListener(this);
+        this.checklistPanel.add(new JLabel("Tasks go here!"));
+        checklistPanel.add(addTaskButton);
 
-        final JPanel checkboxes = new JPanel();
-        checkboxes.add(checkbox);
+        final JButton emptyBox = new JButton();
+        final JButton checkedBox = new JButton("X");
+        emptyBox.setPreferredSize(checkedBox.getPreferredSize());
+        emptyBox.setVisible(false);
+        checkedBox.setVisible(false);
 
-        checkbox.addActionListener(
+        addTaskButton.addActionListener(
                 evt -> {
-                    if (evt.getSource().equals(checkbox)) {
-                        addTaskController.execute(null);
-
+                    if (evt.getSource().equals(addTaskButton)) {
+                        // add ChecklistController.dosomething() based
+                        // on button
+                        taskInputField.setVisible(true);
+                        emptyBox.setVisible(true);
+                        addTaskController.execute(taskInputField.getText());
                     }
                 }
         );
 
+        emptyBox.addActionListener(
+                evt -> {
+                    if (evt.getSource().equals(emptyBox)) {
+                        emptyBox.setVisible(false);
+                        checkedBox.setVisible(true);
+                    }
+                }
+        );
+
+        checkedBox.addActionListener(
+                evt -> {
+                    if (evt.getSource().equals(checkedBox)) {
+                        checkedBox.setVisible(false);
+                        emptyBox.setVisible(true);
+                    }
+                }
+        );
+
+        this.taskViewModel = taskViewModel;
+        this.taskViewModel.addPropertyChangeListener(this);
+
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        this.add(title);
-        this.add(titleInputField);
-        this.add(checkboxes);
+        final JPanel taskPanel = new JPanel();
+        taskPanel.add(emptyBox);
+        taskPanel.add(checkedBox);
+        taskPanel.add(taskInputField);
+        taskPanel.setLayout(new BoxLayout(taskPanel, BoxLayout.X_AXIS));
+
+        checklistPanel.setLayout(new BoxLayout(checklistPanel, BoxLayout.Y_AXIS));
+        checklistPanel.add(taskPanel);
+        this.add(checklistPanel);
     }
 
     /**
