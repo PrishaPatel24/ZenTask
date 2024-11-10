@@ -6,17 +6,6 @@ Team member  ---- GitHub username
 3. Prisha Patel - PrishaPatel24
 
 
-**User stories**: 
-1. As a user, I want to create a new sticky note.
-2. As a user, I want to ask the system to suggest ideas to complete my note.
-3. As a user, I want to retrieve an already existing note. 
-4. As a user, I want to delete a note. 
-
-USERNAMES
-
-Jenna Zhang - stickycorner
-Prisha Patel - PrishaPatel24
-
 USER STORIES
 
 - Calendar: User wants to update their schedule for the day. They navigate to the calendar and delete an existing event in their calendar. Then, the user adds a new event in place of the old one. The user checks when the event will take place and adds a note to the event.
