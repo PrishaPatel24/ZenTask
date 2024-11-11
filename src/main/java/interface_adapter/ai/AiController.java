@@ -2,6 +2,9 @@ package interface_adapter.ai;
 
 import use_cases.ai.AiInputBoundary;
 
+/**
+ * The controller for the AI use case.
+ */
 public class AiController {
     private final AiInputBoundary aiInteractor;
 
@@ -14,7 +17,7 @@ public class AiController {
      * @param note The note in the JTextArea written by the user.
      */
     public void generateResponse(String note) {
-        aiInteractor.generateResponse(note + "Please complete the note based on the"
-                + "given notes.");
+        aiInteractor.generateResponse(note + "Please briefly complete the note with a few sentences"
+                + "based on the given notes.");
     }
 }

@@ -6,9 +6,10 @@ import java.lang.reflect.Array;
 /**
  * The view and taking in the inputs for the checklist section of the program.
  */
-public class ChecklistView {
+public class ChecklistView extends JPanel {
     private final JButton taskButton;
     private final JLabel label;
+    // @prisha fix everything here pls
 
     public ChecklistView() {
         final JPanel checklistPanel = new JPanel();
@@ -26,4 +27,6 @@ public class ChecklistView {
                 }
         );
     }
+
+    // add checklist controller here
 }
