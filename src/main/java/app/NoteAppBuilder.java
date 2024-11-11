@@ -41,8 +41,7 @@ public class NoteAppBuilder {
      */
     public NoteAppBuilder addNoteUseCase() {
         final NoteOutputBoundary noteOutputBoundary = new NotePresenter(noteViewModel);
-        noteInteractor = new NoteInteractor(
-                noteDAO, noteOutputBoundary);
+        noteInteractor = new NoteInteractor(noteOutputBoundary);
 
         final NoteController controller = new NoteController(noteInteractor);
         if (noteView == null) {
@@ -75,7 +74,7 @@ public class NoteAppBuilder {
         frame.add(noteView);
 
         // refresh so that the note will be visible when we start the program
-        noteInteractor.executeRefresh();
+//        noteInteractor.executeRefresh();
 
         return frame;
 

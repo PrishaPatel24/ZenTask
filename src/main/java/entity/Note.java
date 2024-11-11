@@ -6,18 +6,18 @@ package entity;
 public class Note {
 
     private final String content;
-    private final String creationDate;
+    private final String title;
 
-    public Note(String content, String creationDate) {
+    public Note(String content, String title) {
         this.content = content;
-        this.creationDate = creationDate;
+        this.title = title;
     }
 
     public String getContent() {
         return content;
     }
 
-    public String getCreationDate() {
-        return creationDate;
+    public String getTitle() {
+        return title;
     }
 }

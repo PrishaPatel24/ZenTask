@@ -7,13 +7,22 @@ package use_cases.note;
 public interface NoteInputBoundary {
 
     /**
-     * Executes the refresh note use case.
+     * Executes the save note use case.
+     * @param content the note being worked on
+     * @param title the title of note
      */
-    void executeRefresh();
+    void executeSave(String content, String title);
 
     /**
-     * Executes the save note use case.
-     * @param message the input data
+     * Executes the upload note use case.
+     * @param content the note being worked on
      */
-    void executeSave(String message);
+    void executeUpload(String content);
+
+    /**
+     * Executes the clear note use case.
+     * @param content the note being worked on
+     */
+    void executeClear(String content);
+
 }
