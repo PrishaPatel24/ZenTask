@@ -34,7 +34,7 @@ public class ChecklistView extends JPanel implements ActionListener, PropertyCha
         this.checklistPanel.add(new JLabel("Tasks go here!"));
         checklistPanel.add(addTaskButton);
 
-        final JButton emptyBox = new JButton();
+        final JButton emptyBox = new JButton(" ");
         final JButton checkedBox = new JButton("X");
         emptyBox.setPreferredSize(checkedBox.getPreferredSize());
         emptyBox.setVisible(false);

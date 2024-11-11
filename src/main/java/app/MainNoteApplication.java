@@ -15,7 +15,7 @@ import view.ChecklistView;
 public class MainNoteApplication {
 
     static final int WIDTH = 850;
-    static final int HEIGHT = 300;
+    static final int HEIGHT = 500;
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
