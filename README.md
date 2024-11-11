@@ -1,10 +1,7 @@
-# Note Application
+USERNAMES
 
-Team member  ---- GitHub username
-1. Iguehi Akhimien - iguehi-akhimien 
-2. Jenna Zhang - stickycorner 
-3. Prisha Patel - PrishaPatel24
-
+Jenna Zhang - stickycorner
+Prisha Patel - PrishaPatel24
 
 USER STORIES
 
