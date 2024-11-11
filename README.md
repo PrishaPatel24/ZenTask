@@ -1,9 +1,9 @@
-USERNAMES
+### Usernames
 
-Jenna Zhang - stickycorner
-Prisha Patel - PrishaPatel24
+- Jenna Zhang - stickycorner
+- Prisha Patel - PrishaPatel24
 
-USER STORIES
+### User Stories
 
 - Calendar: User wants to update their schedule for the day. They navigate to the calendar and delete an existing event in their calendar. Then, the user adds a new event in place of the old one. The user checks when the event will take place and adds a note to the event.
 - Note-taking: User wants to view an already existing note. User is already logged into an account. User opens the note-taking tab and writes the name of already existing note in search bar. If found, note is opened and displayed. If not found, user is told to type the name again.
