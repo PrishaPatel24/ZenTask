@@ -1,19 +1,20 @@
 package app;
 
-import interface_adapter.ViewModel;
 import interface_adapter.add_task.TaskViewModel;
-import view.ChecklistView;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
+
+import view.CalendarView;
 import view.ChecklistView;
+import view.DashboardView;
+import view.NotesView;
 
 /**
- * An
+ * The main application to boot the program.
  */
-
 public class MainNoteApplication {
-
     static final int WIDTH = 850;
     static final int HEIGHT = 500;
 
@@ -22,34 +23,17 @@ public class MainNoteApplication {
             final CardLayout cardLayout = new CardLayout();
             final JPanel cardPanel = new JPanel(cardLayout);
 
-            final JPanel dashboardPanel = createDashboard();
-            final JPanel notesPanel = createNotes();
-            final JPanel calendarPanel = createCalendar();
-            final JPanel checklistPanel = createChecklist();
+            final JPanel dashboardPanel = new DashboardView();
+            final JPanel notesPanel = new NotesView();
+            final JPanel calendarPanel = new CalendarView();
+            final JPanel checklistPanel = new ChecklistView();
 
             cardPanel.add(dashboardPanel, "Dashboard");
             cardPanel.add(notesPanel, "Notes");
             cardPanel.add(calendarPanel, "Calendar");
             cardPanel.add(checklistPanel, "Checklist");
 
-            final JButton showCalendarButton = new JButton("Calendar");
-            showCalendarButton.addActionListener(event -> cardLayout.show(cardPanel, "Calendar"));
-
-            final JButton showNotesButton = new JButton("Notes");
-            showNotesButton.addActionListener(event -> cardLayout.show(cardPanel, "Notes"));
-
-            final JButton showChecklistButton = new JButton("Checklist");
-            showChecklistButton.addActionListener(event -> cardLayout.show(cardPanel, "Checklist"));
-
-            final JButton homeButton = new JButton("Dashboard");
-            homeButton.addActionListener(event -> cardLayout.show(cardPanel, "Dashboard"));
-
-            final JPanel buttonPanel = new JPanel();
-            buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-            buttonPanel.add(homeButton);
-            buttonPanel.add(showCalendarButton);
-            buttonPanel.add(showNotesButton);
-            buttonPanel.add(showChecklistButton);
+            final JPanel buttonPanel = getButtonPanel(cardLayout, cardPanel);
 
             final JPanel mainPanel = new JPanel(new BorderLayout());
             mainPanel.add(buttonPanel, BorderLayout.WEST);
@@ -61,6 +45,29 @@ public class MainNoteApplication {
             frame.setContentPane(mainPanel);
             frame.setVisible(true);
         });
+    }
+
+    @NotNull
+    private static JPanel getButtonPanel(CardLayout cardLayout, JPanel cardPanel) {
+        final JButton showCalendarButton = new JButton("Calendar");
+        showCalendarButton.addActionListener(event -> cardLayout.show(cardPanel, "Calendar"));
+
+        final JButton showNotesButton = new JButton("Notes");
+        showNotesButton.addActionListener(event -> cardLayout.show(cardPanel, "Notes"));
+
+        final JButton showChecklistButton = new JButton("Checklist");
+        showChecklistButton.addActionListener(event -> cardLayout.show(cardPanel, "Checklist"));
+
+        final JButton homeButton = new JButton("Dashboard");
+        homeButton.addActionListener(event -> cardLayout.show(cardPanel, "Dashboard"));
+
+        final JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+        buttonPanel.add(homeButton);
+        buttonPanel.add(showCalendarButton);
+        buttonPanel.add(showNotesButton);
+        buttonPanel.add(showChecklistButton);
+        return buttonPanel;
     }
 
     private static JPanel createDashboard() {
