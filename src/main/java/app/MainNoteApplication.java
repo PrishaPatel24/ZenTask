@@ -26,7 +26,7 @@ public class MainNoteApplication {
             final JPanel dashboardPanel = new DashboardView();
             final JPanel notesPanel = new NotesView();
             final JPanel calendarPanel = new CalendarView();
-            final JPanel checklistPanel = new ChecklistView();
+            final JPanel checklistPanel = createChecklist();
 
             cardPanel.add(dashboardPanel, "Dashboard");
             cardPanel.add(notesPanel, "Notes");
