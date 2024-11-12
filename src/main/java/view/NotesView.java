@@ -49,7 +49,6 @@ public class NotesView extends JPanel {
                         final String textInput = notesTextArea.getText();
                         final String translation = NoteTranslation.translate(textInput);
                         outputArea.setText(translation);
-                        System.out.println(translation);
                     }
                 }
         );
