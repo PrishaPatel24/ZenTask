@@ -3,6 +3,7 @@ package view;
 import entity.Note;
 import interface_adapter.ai.AiController;
 import use_cases.ai.AiInteractor;
+import use_cases.note.NoteTranslation;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,19 +37,24 @@ public class NotesView extends JPanel {
         );
         toolBarPanel.add(aiButton);
 
+        this.outputArea = new JTextArea();
+        outputArea.setEditable(false);
+        outputArea.setSize(75, 50);
+
         this.languageButton = new JButton("Translate to Other Language");
         languageButton.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(languageButton)) {
-                        // call controlller here
+                        // call controller here
+                        final String textInput = notesTextArea.getText();
+                        final String translation = NoteTranslation.translate(textInput);
+                        outputArea.setText(translation);
+                        System.out.println(translation);
                     }
                 }
         );
-        toolBarPanel.add(languageButton);
 
-        this.outputArea = new JTextArea();
-        outputArea.setEditable(false);
-        outputArea.setSize(75, 50);
+        toolBarPanel.add(languageButton);
         toolBarPanel.add(outputArea);
 
         this.add(toolBarPanel);

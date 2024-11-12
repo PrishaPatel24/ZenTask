@@ -13,6 +13,9 @@ public class NoteTranslation {
      * @param textToTranslate text that is to be translated
      */
     public static String translate(String textToTranslate) {
+        System.out.println("debug: " + textToTranslate);
+        // TODO: add libretranslate error handling;
+        // TODO: use Google Translate API;
         final String res = Translator.translate(Language.ENGLISH, Language.RUSSIAN, textToTranslate);
         return res;
     }

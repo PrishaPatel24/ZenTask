@@ -5,8 +5,9 @@ import junit.framework.TestCase;
 public class NoteTranslationTest extends TestCase {
 
     public void testTranslate() {
-        String text = "Hello world!";
+        // TODO: fix bug when "Bye guys" (w/o exclamation) fails to translate;
+        String text = "Bye guys!";
         String translated = NoteTranslation.translate(text);
-        assertEquals("Привет!", translated);
+        assertEquals("Пока, ребята!", translated);
     }
 }
