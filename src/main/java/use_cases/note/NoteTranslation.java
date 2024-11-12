@@ -1,4 +1,4 @@
-package use_case.note;
+package use_cases.note;
 
 import space.dynomake.libretranslate.Language;
 import space.dynomake.libretranslate.Translator;
@@ -14,7 +14,6 @@ public class NoteTranslation {
      */
     public static String translate(String textToTranslate) {
         final String res = Translator.translate(Language.ENGLISH, Language.RUSSIAN, textToTranslate);
-        //System.out.println(res);
         return res;
     }
 }
