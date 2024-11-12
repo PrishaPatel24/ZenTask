@@ -17,6 +17,10 @@
             <id>google-maven-repository</id>
             <url>https://maven-central.storage-download.googleapis.com/maven2/</url>
         </repository>
+        <repository>
+            <id>dynomakeRepository</id>
+            <url>https://maven.dynomake.space/releases</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -128,6 +132,11 @@
             <artifactId>junit</artifactId>
             <version>4.13.1</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>space.dynomake</groupId>
+            <artifactId>libretranslate-java</artifactId>
+            <version>1.0.9</version>
         </dependency>
 
     </dependencies>
