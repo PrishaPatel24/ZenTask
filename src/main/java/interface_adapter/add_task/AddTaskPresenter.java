@@ -21,7 +21,8 @@ public class AddTaskPresenter implements AddTaskOutputBoundary {
         final TaskState taskState = taskViewModel.getState();
         taskState.setTask(response.getDescription());
         taskState.setError(null);
-        this.taskViewModel.firePropertyChanged();
+        this.taskViewModel.setState(taskState);
+        taskViewModel.firePropertyChanged();
     }
 
     @Override
