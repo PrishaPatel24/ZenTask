@@ -1,10 +1,16 @@
 package app;
 
+import interface_adapter.add_task.AddTaskController;
+import interface_adapter.add_task.AddTaskPresenter;
+import interface_adapter.add_task.TaskViewModel;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
 
+import use_cases.add_task.AddTaskInputBoundary;
+import use_cases.add_task.AddTaskInteractor;
+import use_cases.add_task.AddTaskOutputBoundary;
 import view.CalendarView;
 import view.ChecklistView;
 import view.DashboardView;
@@ -25,7 +31,7 @@ public class MainNoteApplication {
             final JPanel dashboardPanel = new DashboardView();
             final JPanel notesPanel = new NotesView();
             final JPanel calendarPanel = new CalendarView();
-            final JPanel checklistPanel = new ChecklistView();
+            final JPanel checklistPanel = createChecklist();
 
             cardPanel.add(dashboardPanel, "Dashboard");
             cardPanel.add(notesPanel, "Notes");
@@ -106,10 +112,12 @@ public class MainNoteApplication {
     }
 
     private static JPanel createChecklist() {
-        final JPanel checklistPanel = new JPanel();
-        checklistPanel.add(new JLabel("Tasks go here!"));
-        final JButton addTaskButton = new JButton("Add Task +");
-        checklistPanel.add(addTaskButton);
-        return checklistPanel;
+        final TaskViewModel taskViewModel = new TaskViewModel();
+        final AddTaskOutputBoundary addTaskPresenter = new AddTaskPresenter(taskViewModel);
+        final AddTaskInputBoundary addTaskUseCaseInteractor = new AddTaskInteractor(addTaskPresenter);
+        final AddTaskController controller = new AddTaskController(addTaskUseCaseInteractor);
+        final ChecklistView checklistView = new ChecklistView(taskViewModel);
+        checklistView.setTaskController(controller);
+        return checklistView;
     }
 }
