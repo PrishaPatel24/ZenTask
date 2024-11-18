@@ -5,7 +5,7 @@ package entity;
  */
 public class Note {
 
-    private final String content;
+    private String content;
     private final String creationDate;
 
     public Note(String content, String creationDate) {
@@ -15,6 +15,10 @@ public class Note {
 
     public String getContent() {
         return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getCreationDate() {
