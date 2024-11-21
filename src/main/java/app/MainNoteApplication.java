@@ -1,14 +1,12 @@
 package app;
 
+import interface_adapter.note.NoteViewModel;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
 
-import view.CalendarView;
-import view.ChecklistView;
-import view.DashboardView;
-import view.NotesView;
+import view.*;
 
 /**
  * The main application to boot the program.
@@ -23,7 +21,10 @@ public class MainNoteApplication {
             final JPanel cardPanel = new JPanel(cardLayout);
 
             final JPanel dashboardPanel = new DashboardView();
-            final JPanel notesPanel = new NotesView();
+
+            final NoteViewModel noteViewModel = new NoteViewModel();
+            final JPanel notesPanel = new NotesView(noteViewModel);
+
             final JPanel calendarPanel = new CalendarView();
             final JPanel checklistPanel = new ChecklistView();
 

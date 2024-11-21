@@ -24,13 +24,13 @@ public class MainNoteApplicationTest {
             private String note = "test";
 
             @Override
-            public String saveNote(User user, String note) {
+            public String saveNote(String title, String note) {
                 this.note = note;
                 return note;
             }
 
             @Override
-            public String loadNote(User user) {
+            public String loadNote(String title) {
                 return note;
             }
         };
