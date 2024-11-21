@@ -2,7 +2,6 @@ package use_cases.note;
 
 import data_access.InMemoryNoteDataAccessObject;
 import entity.Note;
-import org.checkerframework.checker.units.qual.N;
 
 /**
  * The "Use Case Interactor" for our two note-related use cases of refreshing
@@ -20,10 +19,11 @@ public class NoteInteractor implements NoteInputBoundary {
     }
 
     @Override
-    public void executeSave(String content, String title) {
-        final Note noteInputData = new Note(content, title);
-        inMemoryNoteDataAccessObject.saveNote(content, (Note) noteInputData);
-        this.notePresenter.prepareSuccessView(content);
+    public void executeSave(NoteInputData noteInputData) {
+        final Note note = new Note(noteInputData.getContent(), noteInputData.getTitle());
+        inMemoryNoteDataAccessObject.saveNote(noteInputData.getContent(), note);
+        final NoteOutputData noteOutputData = new NoteOutputData(note.getTitle(), false);
+        this.notePresenter.prepareSuccessView(noteOutputData);
     }
 
     @Override

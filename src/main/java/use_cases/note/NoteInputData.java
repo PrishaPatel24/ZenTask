@@ -16,7 +16,7 @@ public class NoteInputData {
         return title;
     }
 
-    public String getNo() {
+    public String getContent() {
         return content;
     }
 }
