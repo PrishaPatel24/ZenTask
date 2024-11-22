@@ -1,5 +1,6 @@
 package view;
 
+import entity.Note;
 import interface_adapter.ai.AiController;
 import use_cases.ai.AiInteractor;
 
@@ -29,7 +30,7 @@ public class NotesView extends JPanel {
         aiButton.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(aiButton)) {
-                        aiController.generateResponse(notesTextArea.getText());
+                        aiController.generateResponse(new Note(notesTextArea.getText(), "NA"));
                     }
                 }
         );
@@ -57,5 +58,12 @@ public class NotesView extends JPanel {
         this.aiController = aiController;
     }
 
+    /**
+     * Updates the display of the un-editable text area.
+     * @param newNote The new note to display.
+     */
+    public void displayNewNote(Note newNote) {
+        notesTextArea.setText(newNote.getContent());
+    }
     // add methods for other controllers here
 }
