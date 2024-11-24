@@ -118,6 +118,7 @@ public class MainNoteApplication {
         final AddTaskController controller = new AddTaskController(addTaskUseCaseInteractor);
         final ChecklistView checklistView = new ChecklistView(taskViewModel);
         checklistView.setTaskController(controller);
+        taskViewModel.firePropertyChanged();
         return checklistView;
     }
 }
