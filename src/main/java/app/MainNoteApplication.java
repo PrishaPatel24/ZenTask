@@ -3,6 +3,8 @@ package app;
 import interface_adapter.add_task.AddTaskController;
 import interface_adapter.add_task.AddTaskPresenter;
 import interface_adapter.add_task.TaskViewModel;
+import interface_adapter.calendar.CalendarController;
+import interface_adapter.calendar.CalendarPresenter;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -11,6 +13,10 @@ import java.awt.*;
 import use_cases.add_task.AddTaskInputBoundary;
 import use_cases.add_task.AddTaskInteractor;
 import use_cases.add_task.AddTaskOutputBoundary;
+import use_cases.calendar.CalendarInputBoundary;
+import use_cases.calendar.CalendarInteractor;
+import use_cases.calendar.CalendarOutputBoundary;
+import use_cases.calendar.CalendarRequest;
 import view.CalendarView;
 import view.ChecklistView;
 import view.DashboardView;
@@ -30,7 +36,7 @@ public class MainNoteApplication {
 
             final JPanel dashboardPanel = new DashboardView();
             final JPanel notesPanel = new NotesView();
-            final JPanel calendarPanel = new CalendarView();
+            final JPanel calendarPanel = createCalendar();
             final JPanel checklistPanel = createChecklist();
 
             cardPanel.add(dashboardPanel, "Dashboard");
@@ -82,9 +88,12 @@ public class MainNoteApplication {
     }
 
     private static JPanel createCalendar() {
-        final JPanel calendarPanel = new JPanel();
-        calendarPanel.add(new JLabel("Your calendar would be displayed here"));
-        return calendarPanel;
+        final CalendarView calendarView = new CalendarView();
+        final CalendarOutputBoundary calendarPresenter = new CalendarPresenter(calendarView);
+        final CalendarInputBoundary calendarInteractor = new CalendarInteractor(calendarPresenter, new CalendarRequest());
+        final CalendarController calendarController = new CalendarController(calendarInteractor);
+        calendarView.setCalendarController(calendarController);
+        return calendarView;
     }
 
     private static JPanel createNotes() {

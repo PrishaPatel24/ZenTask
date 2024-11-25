@@ -5,10 +5,10 @@ package entity;
  */
 public class Event {
 
-    private final String name;
-    private final String datetime;
-    private final String location;
-    private final String notes;
+    private String name;
+    private String datetime;
+    private String location;
+    private String notes;
 
     public Event(String name, String datetime, String location, String notes) {
         this.name = name;
@@ -33,4 +33,19 @@ public class Event {
         return notes;
     }
 
+    public void setEventName(String eventName) {
+        this.name = eventName;
+    }
+
+    public void setEventDatetime(String eventDatetime) {
+        this.datetime = eventDatetime;
+    }
+
+    public void setEventLocation(String eventLocation) {
+        this.location = eventLocation;
+    }
+
+    public void setEventNotes(String eventNotes) {
+        this.notes = eventNotes;
+    }
 }
