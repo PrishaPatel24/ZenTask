@@ -1,13 +1,5 @@
 package view;
 
-import interface_adapter.ai.AiController;
-import interface_adapter.note.NoteController;
-import interface_adapter.note.NoteState;
-import interface_adapter.note.NoteViewModel;
-import org.jetbrains.annotations.NotNull;
-
-import javax.swing.*;
-import javax.swing.text.StyledEditorKit;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,32 +10,40 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JSplitPane;
+import javax.swing.JTextArea;
+
+import org.jetbrains.annotations.NotNull;
+
+import interface_adapter.ai.AiController;
+import interface_adapter.note.NoteController;
+import interface_adapter.note.NoteState;
+import interface_adapter.note.NoteViewModel;
+
 public class NotesView extends JPanel implements ActionListener, PropertyChangeListener {
 
     private AiController aiController;
     private NoteController noteController;
-    private final NoteViewModel noteViewModel;
 
     private final JLabel noteName = new JLabel("New Note");
     private final JTextArea noteInputField = new JTextArea();
-    private final JMenuBar menuBar = new JMenuBar();
 
-    private final JButton addButton = new JButton("Add Title");
+    private final JButton saveButton = new JButton("Save Note");
     private final JButton uploadButton = new JButton("Upload");
     private final JButton clearButton = new JButton("Clear");
     private final JButton deleteButton = new JButton("Delete");
 
-    private final JMenuItem boldMenu = new JMenuItem("Bold");
-    private final JMenuItem italicMenu = new JMenuItem("Italic");
-    private final JMenuItem underlineMenu = new JMenuItem("Underline");
-    private final JMenu redoMenu = new JMenu("Redo");
-    private final JMenu undoMenu = new JMenu("Undo");
-
     public NotesView(NoteViewModel noteViewModel) {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        this.noteViewModel = noteViewModel;
-        this.noteViewModel.addPropertyChangeListener(this);
+        noteViewModel.addPropertyChangeListener(this);
 
         final JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
@@ -51,18 +51,21 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
         mainPanel.add(noteName);
         noteName.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        noteInputField.setLineWrap(true);
+        noteInputField.setWrapStyleWord(true);
+
         final JPanel buttons = new JPanel();
-        buttons.add(addButton);
+        buttons.add(saveButton);
         buttons.add(uploadButton);
         buttons.add(clearButton);
         buttons.add(deleteButton);
 
-        addButton.addActionListener(
+        saveButton.addActionListener(
                 evt -> {
-                    if (evt.getSource().equals(addButton)) {
+                    if (evt.getSource().equals(saveButton)) {
                         final String newNoteName = JOptionPane.showInputDialog("Enter new note name");
                         noteName.setText(newNoteName);
-                        noteController.save(noteInputField.getText(), noteName.getText());
+                        noteController.execute(noteInputField.getText(), noteName.getText());
 
                     }
                 }
@@ -84,10 +87,10 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
                                     noteInputField.append(line);
                                     noteInputField.append("\n");
                                 }
-                                noteController.updateContent(noteInputField.getText());
                             }
                             catch (IOException exception) {
-                                JOptionPane.showMessageDialog(this, exception.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                                JOptionPane.showMessageDialog(this, exception.getMessage(),
+                                        "Error", JOptionPane.ERROR_MESSAGE);
                             }
                         }
 
@@ -98,7 +101,7 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
         clearButton.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(clearButton)) {
-                        noteController.clear(noteInputField.getText());
+                        noteController.execute(noteInputField.getText(), noteName.getText());
                     }
                 }
         );
@@ -106,12 +109,13 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
         deleteButton.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(deleteButton)) {
-                        noteController.clear(noteInputField.getText());
+                        noteController.execute(noteInputField.getText(), noteName.getText());
                         noteName.setText("New Note");
                     }
                 }
         );
 
+        final JMenuBar menuBar = new JMenuBar();
         mainPanel.add(menuBar);
         mainPanel.add(noteInputField);
         mainPanel.add(buttons);
@@ -185,6 +189,7 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
     public void setNoteController(NoteController controller) {
         this.noteController = controller;
     }
+
     public void setAiController(AiController aiController) {
         this.aiController = aiController;
     }

@@ -5,16 +5,16 @@ package use_cases.note;
  */
 public class NoteOutputData {
 
-    private final String title;
+    private final String content;
     private final boolean useCaseFailed;
 
     public NoteOutputData(String title, boolean useCaseFailed) {
-        this.title = title;
+        this.content = title;
         this.useCaseFailed = useCaseFailed;
     }
 
-    public String getTitle() {
-        return title;
+    public String getContent() {
+        return content;
     }
 
     public boolean isUseCaseFailed() {

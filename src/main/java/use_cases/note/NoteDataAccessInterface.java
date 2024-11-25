@@ -15,12 +15,4 @@ public interface NoteDataAccessInterface {
      * @param note the note to be saved
      */
     void saveNote(String title, Note note);
-
-    /**
-     * Returns the note associated with the title.
-     * @param title the title associated with the note
-     * @return the contents of the note
-     */
-    String loadNote(String title);
-
 }

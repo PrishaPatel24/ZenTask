@@ -1,15 +1,16 @@
 package interface_adapter.note;
 
-import use_cases.note.NoteInteractor;
+import use_cases.note.NoteInputBoundary;
+import use_cases.note.NoteInputData;
 
 /**
  * Controller for our Note related Use Cases.
  */
 public class NoteController {
 
-    private final NoteInteractor noteInteractor;
+    private final NoteInputBoundary noteInteractor;
 
-    public NoteController(NoteInteractor noteInteractor) {
+    public NoteController(NoteInputBoundary noteInteractor) {
         this.noteInteractor = noteInteractor;
     }
 
@@ -18,24 +19,9 @@ public class NoteController {
      * @param content the content of the note being worked on
      * @param title the title of the note
      */
-    public void save(String content, String title) {
-        noteInteractor.executeSave(content, title);
-    }
-
-    /**
-     * Executes the Note related Use Cases.
-     * @param content the content of the note being worked on
-     */
-    public void clear(String content) {
-        noteInteractor.executeClear(content);
-    }
-
-    /**
-     * Executes the Note related Use Cases.
-     * @param content the content of the note being worked on
-     */
-    public void updateContent(String content) {
-        noteInteractor.executeUpload(content);
+    public void execute(String content, String title) {
+        final NoteInputData newNote = new NoteInputData(content, title);
+        noteInteractor.execute(newNote);
     }
 
 }

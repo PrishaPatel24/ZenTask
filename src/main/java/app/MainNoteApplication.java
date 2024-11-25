@@ -1,8 +1,12 @@
 package app;
 
+import data_access.InMemoryNoteDataAccessObject;
 import interface_adapter.add_task.AddTaskController;
 import interface_adapter.add_task.AddTaskPresenter;
 import interface_adapter.add_task.TaskViewModel;
+import interface_adapter.note.NoteController;
+import interface_adapter.note.NotePresenter;
+import interface_adapter.note.NoteViewModel;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -11,6 +15,9 @@ import java.awt.*;
 import use_cases.add_task.AddTaskInputBoundary;
 import use_cases.add_task.AddTaskInteractor;
 import use_cases.add_task.AddTaskOutputBoundary;
+import use_cases.note.NoteInputBoundary;
+import use_cases.note.NoteInteractor;
+import use_cases.note.NoteOutputBoundary;
 import view.CalendarView;
 import view.ChecklistView;
 import view.DashboardView;
@@ -29,7 +36,7 @@ public class MainNoteApplication {
             final JPanel cardPanel = new JPanel(cardLayout);
 
             final JPanel dashboardPanel = new DashboardView();
-            final JPanel notesPanel = new NotesView();
+            final JPanel notesPanel = createNotes();
             final JPanel calendarPanel = new CalendarView();
             final JPanel checklistPanel = createChecklist();
 
@@ -88,27 +95,14 @@ public class MainNoteApplication {
     }
 
     private static JPanel createNotes() {
-        final JPanel notesPanel = new JPanel();
-        notesPanel.setLayout(new BoxLayout(notesPanel, BoxLayout.X_AXIS));
-
-        final TextArea textArea = new TextArea();
-        notesPanel.add(textArea);
-
-        final JPanel toolBarPanel = new JPanel();
-        toolBarPanel.setLayout(new BoxLayout(toolBarPanel, BoxLayout.Y_AXIS));
-        final JButton aiButton = new JButton("Complete Notes With AI");
-        toolBarPanel.add(aiButton);
-
-        final JButton languageButton = new JButton("Translate to Other Language");
-        toolBarPanel.add(languageButton);
-
-        final JTextArea notesTextArea = new JTextArea();
-        notesTextArea.setEditable(false);
-        notesTextArea.setSize(75, 50);
-        toolBarPanel.add(notesTextArea);
-
-        notesPanel.add(toolBarPanel);
-        return notesPanel;
+        final NoteViewModel noteViewModel = new NoteViewModel();
+        final NoteOutputBoundary notePresenter = new NotePresenter(noteViewModel);
+        final InMemoryNoteDataAccessObject inMemoryNoteDAO = new InMemoryNoteDataAccessObject();
+        final NoteInputBoundary noteInteractor = new NoteInteractor(notePresenter, inMemoryNoteDAO);
+        final NoteController controller = new NoteController(noteInteractor);
+        final NotesView notesView = new NotesView(noteViewModel);
+        notesView.setNoteController(controller);
+        return notesView;
     }
 
     private static JPanel createChecklist() {

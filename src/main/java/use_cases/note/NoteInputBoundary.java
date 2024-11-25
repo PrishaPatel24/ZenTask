@@ -8,21 +8,8 @@ public interface NoteInputBoundary {
 
     /**
      * Executes the save note use case.
-     * @param content the note being worked on
-     * @param title the title of note
+     * @param noteInputData the note being worked on.
      */
-    void executeSave(String content, String title);
-
-    /**
-     * Executes the upload note use case.
-     * @param content the note being worked on
-     */
-    void executeUpload(String content);
-
-    /**
-     * Executes the clear note use case.
-     * @param content the note being worked on
-     */
-    void executeClear(String content);
+    void execute(NoteInputData noteInputData);
 
 }

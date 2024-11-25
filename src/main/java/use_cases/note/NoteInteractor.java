@@ -13,29 +13,17 @@ public class NoteInteractor implements NoteInputBoundary {
     private final NoteOutputBoundary notePresenter;
     private final InMemoryNoteDataAccessObject inMemoryNoteDataAccessObject;
 
-    public NoteInteractor(NoteOutputBoundary noteOutputBoundary, InMemoryNoteDataAccessObject inMemoryNoteDataAccessObject) {
+    public NoteInteractor(NoteOutputBoundary noteOutputBoundary, InMemoryNoteDataAccessObject inMemoryNoteDAO) {
         this.notePresenter = noteOutputBoundary;
-        this.inMemoryNoteDataAccessObject = inMemoryNoteDataAccessObject;
+        this.inMemoryNoteDataAccessObject = inMemoryNoteDAO;
     }
 
     @Override
-    public void executeSave(NoteInputData noteInputData) {
+    public void execute(NoteInputData noteInputData) {
         final Note note = new Note(noteInputData.getContent(), noteInputData.getTitle());
         inMemoryNoteDataAccessObject.saveNote(noteInputData.getContent(), note);
         final NoteOutputData noteOutputData = new NoteOutputData(note.getTitle(), false);
-        this.notePresenter.prepareSuccessView(noteOutputData);
+        this.notePresenter.prepareSuccessView(noteOutputData.getContent());
     }
 
-    @Override
-    public void executeUpload(String content) {
-        if (content == null || content.isEmpty()) {
-            this.notePresenter.prepareFailView("Upload failed");
-        }
-        this.notePresenter.prepareSuccessView(content);
-    }
-
-    @Override
-    public void executeClear(String content) {
-        this.notePresenter.prepareSuccessView(" ");
-    }
 }

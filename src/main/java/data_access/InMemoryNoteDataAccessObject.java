@@ -1,5 +1,6 @@
 package data_access;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import entity.Note;
@@ -12,19 +13,13 @@ import use_cases.note.NoteDataAccessInterface;
 public class InMemoryNoteDataAccessObject implements NoteDataAccessInterface {
     private final Map<String, Note> notes;
 
-    public InMemoryNoteDataAccessObject(Map<String, Note> notes) {
-        this.notes = notes;
+    public InMemoryNoteDataAccessObject() {
+        this.notes = new HashMap<>();
     }
 
     @Override
     public void saveNote(String title, Note note) {
         this.notes.put(title, note);
-    }
-
-    @Override
-    public String loadNote(String title) {
-        final Note note = this.notes.get(title);
-        return note.getContent();
     }
 
     public String[] getNotes() {
