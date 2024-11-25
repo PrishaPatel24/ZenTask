@@ -3,6 +3,8 @@ package view;
 import entity.Note;
 import interface_adapter.ai.AiController;
 import use_cases.ai.AiInteractor;
+import use_cases.note.NoteInputData;
+import use_cases.note.NoteOutputData;
 import use_cases.note.NoteTranslation;
 
 import javax.swing.*;
@@ -23,7 +25,7 @@ public class NotesView extends JPanel {
         this.notesTextArea = new JTextArea();
         igeePanel.add(notesTextArea);
         this.add(notesTextArea);
-        // @Igee the Notes text area is basically just a field to where youd add your stuff.
+        // @Igee the Notes text area is basically just a field to where you'd add your stuff.
 
         this.toolBarPanel = new JPanel();
         toolBarPanel.setLayout(new BoxLayout(toolBarPanel, BoxLayout.Y_AXIS));
@@ -41,14 +43,28 @@ public class NotesView extends JPanel {
         outputArea.setEditable(false);
         outputArea.setSize(75, 50);
 
-        this.languageButton = new JButton("Translate to Other Language");
+        // Dropdown menu
+        final String[] languages = {"Russian", "French", "Spanish", "Arabic"};
+        final JComboBox<String> languageDropdown = new JComboBox<>(languages);
+        languageDropdown.setVisible(false);
+        toolBarPanel.add(languageDropdown);
+
+        // Language Translation Button
+        this.languageButton = new JButton("Translate");
         languageButton.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(languageButton)) {
-                        // call controller here
-                        final String textInput = notesTextArea.getText();
-                        final String translation = NoteTranslation.translate(textInput);
-                        outputArea.setText(translation);
+                        if (!languageDropdown.isVisible()) {
+                            languageDropdown.setVisible(true);
+                        }
+                        else {
+                            final String selectedLanguage = (String) languageDropdown.getSelectedItem();
+                            final String textInput = notesTextArea.getText();
+                            final NoteInputData inputData = new NoteInputData(textInput, selectedLanguage);
+                            final NoteOutputData outputData = NoteTranslation.translate(inputData);
+                            outputArea.setText(outputData.getTranslatedText());
+                            languageDropdown.setVisible(false);
+                        }
                     }
                 }
         );

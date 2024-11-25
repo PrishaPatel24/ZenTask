@@ -10,12 +10,38 @@ public class NoteTranslation {
 
     /**
      * Translates text from english to other language.
-     * @param textToTranslate text that is to be translated
+     *
+     * @param inputData the input data containing the text to translate and the selected language
+     * @return NoteOutputData containing the translation
      */
-    public static String translate(String textToTranslate) {
-        // TODO: add libretranslate error handling;
-        // TODO: use Google Translate API;
-        final String res = Translator.translate(Language.ENGLISH, Language.RUSSIAN, textToTranslate);
-        return res;
+    public static NoteOutputData translate(NoteInputData inputData) {
+        final int characterLimit = 2000;
+        final String textToTranslate = inputData.getTextToTranslate();
+        final String selectedLanguage = inputData.getSelectedLanguage();
+
+        // checking if length of text exceeds char limit
+        if (textToTranslate.length() > characterLimit) {
+            return new NoteOutputData("Exceeded character limit");
+        }
+
+        final String translation;
+        switch (selectedLanguage) {
+            case "Russian":
+                translation = Translator.translate(Language.ENGLISH, Language.RUSSIAN, textToTranslate);
+                break;
+            case "French":
+                translation = Translator.translate(Language.ENGLISH, Language.FRENCH, textToTranslate);
+                break;
+            case "Spanish":
+                translation = Translator.translate(Language.ENGLISH, Language.SPANISH, textToTranslate);
+                break;
+            case "Arabic":
+                translation = Translator.translate(Language.ENGLISH, Language.ARABIC, textToTranslate);
+                break;
+            default:
+                translation = textToTranslate;
+        }
+
+        return new NoteOutputData(translation);
     }
 }
