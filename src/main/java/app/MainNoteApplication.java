@@ -3,6 +3,8 @@ package app;
 import interface_adapter.add_task.AddTaskController;
 import interface_adapter.add_task.AddTaskPresenter;
 import interface_adapter.add_task.TaskViewModel;
+import interface_adapter.ai.AiController;
+import interface_adapter.ai.AiPresenter;
 import interface_adapter.calendar.CalendarController;
 import interface_adapter.calendar.CalendarPresenter;
 import org.jetbrains.annotations.NotNull;
@@ -13,6 +15,10 @@ import java.awt.*;
 import use_cases.add_task.AddTaskInputBoundary;
 import use_cases.add_task.AddTaskInteractor;
 import use_cases.add_task.AddTaskOutputBoundary;
+import use_cases.ai.AiInputBoundary;
+import use_cases.ai.AiInteractor;
+import use_cases.ai.AiOutputBoundary;
+import use_cases.ai.AiRequest;
 import use_cases.calendar.CalendarInputBoundary;
 import use_cases.calendar.CalendarInteractor;
 import use_cases.calendar.CalendarOutputBoundary;
@@ -35,7 +41,7 @@ public class MainNoteApplication {
             final JPanel cardPanel = new JPanel(cardLayout);
 
             final JPanel dashboardPanel = new DashboardView();
-            final JPanel notesPanel = new NotesView();
+            final JPanel notesPanel = createNotes();
             final JPanel calendarPanel = createCalendar();
             final JPanel checklistPanel = createChecklist();
 
@@ -97,27 +103,13 @@ public class MainNoteApplication {
     }
 
     private static JPanel createNotes() {
-        final JPanel notesPanel = new JPanel();
-        notesPanel.setLayout(new BoxLayout(notesPanel, BoxLayout.X_AXIS));
-
-        final TextArea textArea = new TextArea();
-        notesPanel.add(textArea);
-
-        final JPanel toolBarPanel = new JPanel();
-        toolBarPanel.setLayout(new BoxLayout(toolBarPanel, BoxLayout.Y_AXIS));
-        final JButton aiButton = new JButton("Complete Notes With AI");
-        toolBarPanel.add(aiButton);
-
-        final JButton languageButton = new JButton("Translate to Other Language");
-        toolBarPanel.add(languageButton);
-
-        final JTextArea notesTextArea = new JTextArea();
-        notesTextArea.setEditable(false);
-        notesTextArea.setSize(75, 50);
-        toolBarPanel.add(notesTextArea);
-
-        notesPanel.add(toolBarPanel);
-        return notesPanel;
+        final NotesView notesView = new NotesView();
+        final AiOutputBoundary aiPresenter = new AiPresenter(notesView);
+        final AiRequest aiRequest = new AiRequest();
+        final AiInputBoundary aiInteractor = new AiInteractor(aiPresenter, aiRequest);
+        final AiController aiController = new AiController(aiInteractor);
+        notesView.setAiController(aiController);
+        return notesView;
     }
 
     private static JPanel createChecklist() {

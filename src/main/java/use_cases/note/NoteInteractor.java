@@ -31,7 +31,6 @@ public class NoteInteractor implements NoteInputBoundary {
     @Override
     public void executeRefresh() {
         try {
-
             final String note = noteDataAccessInterface.loadNote(user);
             noteOutputBoundary.prepareSuccessView(note);
         }
@@ -57,3 +56,4 @@ public class NoteInteractor implements NoteInputBoundary {
         }
     }
 }
+
