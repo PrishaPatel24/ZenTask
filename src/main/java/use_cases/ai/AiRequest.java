@@ -4,8 +4,6 @@ import java.util.List;
 
 import com.cohere.api.Cohere;
 import com.cohere.api.requests.ChatRequest;
-import com.cohere.api.types.ChatMessage;
-import com.cohere.api.types.Message;
 import com.cohere.api.types.NonStreamedChatResponse;
 
 /**

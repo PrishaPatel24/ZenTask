@@ -2,8 +2,6 @@ package use_cases.ai;
 
 import entity.Note;
 
-import javax.swing.*;
-
 /**
  * The class that will implement the different functions of AI in the program.
  * It will generate a completed written version of the current note.
@@ -18,15 +16,6 @@ public class AiInteractor implements AiInputBoundary {
     public AiInteractor(AiOutputBoundary aiOutputBoundary, AiRequest aiRequest) {
         this.aiOutputBoundary = aiOutputBoundary;
         this.aiRequest = aiRequest;
-    }
-
-    /**
-     * Find the text content of a given note in the program.
-     * @param textArea The field notes have been added to.
-     * @return A string of the inputted text in notes.
-     */
-    public String getNote(JTextArea textArea) {
-        return textArea.getText();
     }
 
     /**
