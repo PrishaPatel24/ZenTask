@@ -1,5 +1,6 @@
 package interface_adapter.ai;
 
+import entity.Note;
 import use_cases.ai.AiInputBoundary;
 
 /**
@@ -16,8 +17,7 @@ public class AiController {
      * Generates the AI response from a given note.
      * @param note The note in the JTextArea written by the user.
      */
-    public void generateResponse(String note) {
-        aiInteractor.generateResponse(note + "Please briefly complete the note with a few sentences"
-                + "based on the given notes.");
+    public void generateResponse(Note note) {
+        aiInteractor.generateResponse(note);
     }
 }
