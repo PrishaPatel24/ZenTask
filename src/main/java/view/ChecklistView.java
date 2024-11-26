@@ -41,9 +41,6 @@ public class ChecklistView extends JPanel implements PropertyChangeListener {
                         "Enter Task Description:", "New Task", JOptionPane.PLAIN_MESSAGE);
                 if (taskDescription != null && !taskDescription.trim().isEmpty()) {
                     addTaskController.execute(taskDescription.trim());
-                    final TaskState currentState = taskViewModel.getState();
-                    currentState.addTask(taskDescription);
-                    taskViewModel.setState(currentState);
                 }
             }
         });
@@ -52,13 +49,15 @@ public class ChecklistView extends JPanel implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         final TaskState state = (TaskState) evt.getNewValue();
+
         if (state.getError() != null) {
             JOptionPane.showMessageDialog(this, state.getError(),
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
         final JPanel taskPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         if (!state.getList().isEmpty()) {
-            final JCheckBox taskCheckBox = new JCheckBox(state.getList().get(state.getList().size() - 1));
+            final JCheckBox taskCheckBox = new JCheckBox((state.getList().get(state.getList().size() - 1))
+                    .getDescription());
             taskPanel.add(taskCheckBox);
         }
         checklistPanel.add(taskPanel);
