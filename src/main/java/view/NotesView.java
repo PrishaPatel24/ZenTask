@@ -1,6 +1,6 @@
 package view;
 
-import java.awt.*;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -14,7 +14,6 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
-import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
@@ -27,112 +26,151 @@ import interface_adapter.note.NoteController;
 import interface_adapter.note.NoteState;
 import interface_adapter.note.NoteViewModel;
 
+/**
+ * This class sets up the view of the Notes Use Case.
+ */
 public class NotesView extends JPanel implements ActionListener, PropertyChangeListener {
+    static final int DIVIDER = 400;
 
+    private final NoteViewModel noteViewModel;
     private AiController aiController;
     private NoteController noteController;
 
-    private final JLabel noteName = new JLabel("New Note");
-    private final JTextArea noteInputField = new JTextArea();
+    private JLabel noteName;
+    private JTextArea noteInputField;
 
-    private final JButton saveButton = new JButton("Save Note");
-    private final JButton uploadButton = new JButton("Upload");
-    private final JButton clearButton = new JButton("Clear");
-    private final JButton deleteButton = new JButton("Delete");
+    private JButton saveNoteButton;
+    private JButton uploadButton;
+    private JButton clearButton;
+    private JButton deleteButton;
+
+    private JPanel notePanel;
+    private JPanel editPanel;
+    private JPanel savePanel;
+
+    private JSplitPane splitPane;
 
     public NotesView(NoteViewModel noteViewModel) {
+        this.noteViewModel = noteViewModel;
+        this.noteViewModel.addPropertyChangeListener(this);
+
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        noteViewModel.addPropertyChangeListener(this);
+        setUpUi();
 
-        final JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+    }
 
-        mainPanel.add(noteName);
+    private void setUpUi() {
+        initializeComponents();
+        setUpActionListeners();
+        buildUi();
+    }
+
+    private void initializeComponents() {
+        notePanel = new JPanel();
+        editPanel = new JPanel();
+        savePanel = new JPanel();
+
+        noteName = new JLabel("New Note");
+
+        noteInputField = new JTextArea();
+
+        saveNoteButton = new JButton("Save Note");
+        uploadButton = new JButton("Upload");
+        clearButton = new JButton("Clear");
+        deleteButton = new JButton("Delete");
+
+    }
+
+    private void setUpActionListeners() {
+        saveNoteButton.addActionListener(this::saveNote);
+        uploadButton.addActionListener(this::uploadText);
+        clearButton.addActionListener(this::clearText);
+        deleteButton.addActionListener(this::deleteNote);
+
+    }
+
+    private void saveNote(ActionEvent actionEvent) {
+        if (actionEvent.getSource().equals(saveNoteButton)) {
+            final String newNoteName = JOptionPane.showInputDialog("Enter new note name");
+            noteName.setText(newNoteName);
+            noteController.execute(noteInputField.getText(), noteName.getText());
+
+        }
+
+    }
+
+    private void uploadText(ActionEvent actionEvent) {
+        if (actionEvent.getSource().equals(uploadButton)) {
+            final JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Upload");
+            final int returnVal = fileChooser.showOpenDialog(this);
+            final File selectedFile = fileChooser.getSelectedFile();
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                try (BufferedReader reader = new BufferedReader(new FileReader(selectedFile))) {
+                    noteInputField.setText("");
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        noteInputField.append(line);
+                        noteInputField.append("\n");
+                    }
+                }
+                catch (IOException exception) {
+                    JOptionPane.showMessageDialog(this, exception.getMessage(),
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+
+        }
+
+    }
+
+    private void clearText(ActionEvent evt) {
+        if (evt.getSource().equals(clearButton)) {
+            noteController.execute(noteInputField.getText(), noteName.getText());
+        }
+
+    }
+
+    private void deleteNote(ActionEvent evt) {
+        if (evt.getSource().equals(deleteButton)) {
+            noteController.execute(noteInputField.getText(), noteName.getText());
+            noteName.setText("New Note");
+        }
+
+    }
+
+    private void buildUi() {
+        notePanel.setLayout(new BoxLayout(notePanel, BoxLayout.Y_AXIS));
+
         noteName.setAlignmentX(Component.CENTER_ALIGNMENT);
+        notePanel.add(noteName);
 
         noteInputField.setLineWrap(true);
         noteInputField.setWrapStyleWord(true);
+        notePanel.add(noteInputField);
 
-        final JPanel buttons = new JPanel();
-        buttons.add(saveButton);
-        buttons.add(uploadButton);
-        buttons.add(clearButton);
-        buttons.add(deleteButton);
+        editPanel.add(uploadButton);
+        editPanel.add(clearButton);
+        editPanel.add(deleteButton);
+        notePanel.add(editPanel);
 
-        saveButton.addActionListener(
-                evt -> {
-                    if (evt.getSource().equals(saveButton)) {
-                        final String newNoteName = JOptionPane.showInputDialog("Enter new note name");
-                        noteName.setText(newNoteName);
-                        noteController.execute(noteInputField.getText(), noteName.getText());
-
-                    }
-                }
-        );
-
-        uploadButton.addActionListener(
-                evt -> {
-                    if (evt.getSource().equals(uploadButton)) {
-                        final JFileChooser fileChooser = new JFileChooser();
-                        fileChooser.setDialogTitle("Upload");
-                        final int returnVal = fileChooser.showOpenDialog(this);
-                        final File selectedFile = fileChooser.getSelectedFile();
-                        if (returnVal == JFileChooser.APPROVE_OPTION) {
-                            try {
-                                final BufferedReader reader = new BufferedReader(new FileReader(selectedFile));
-                                noteInputField.setText("");
-                                String line;
-                                while ((line = reader.readLine()) != null) {
-                                    noteInputField.append(line);
-                                    noteInputField.append("\n");
-                                }
-                            }
-                            catch (IOException exception) {
-                                JOptionPane.showMessageDialog(this, exception.getMessage(),
-                                        "Error", JOptionPane.ERROR_MESSAGE);
-                            }
-                        }
-
-                    }
-                }
-        );
-
-        clearButton.addActionListener(
-                evt -> {
-                    if (evt.getSource().equals(clearButton)) {
-                        noteController.execute(noteInputField.getText(), noteName.getText());
-                    }
-                }
-        );
-
-        deleteButton.addActionListener(
-                evt -> {
-                    if (evt.getSource().equals(deleteButton)) {
-                        noteController.execute(noteInputField.getText(), noteName.getText());
-                        noteName.setText("New Note");
-                    }
-                }
-        );
-
-        final JMenuBar menuBar = new JMenuBar();
-        mainPanel.add(menuBar);
-        mainPanel.add(noteInputField);
-        mainPanel.add(buttons);
-        this.add(mainPanel);
+        savePanel.add(saveNoteButton);
+        notePanel.add(savePanel);
 
         final JPanel functionalityPanel = getjPanel();
-        this.add(functionalityPanel);
 
-        final JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, mainPanel, functionalityPanel);
+        splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, notePanel, functionalityPanel);
+        splitPane.setDividerLocation(DIVIDER);
+
         this.add(splitPane);
 
     }
 
     @NotNull
     private JPanel getjPanel() {
-        final JPanel functionalityPanel = new JPanel();
-        functionalityPanel.setLayout(new BoxLayout(functionalityPanel, BoxLayout.Y_AXIS));
+        final JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         final JPanel tools = new JPanel();
 
@@ -159,9 +197,9 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
         final JTextArea outputArea = new JTextArea();
         outputArea.setEditable(false);
 
-        functionalityPanel.add(outputArea);
-        functionalityPanel.add(tools);
-        return functionalityPanel;
+        panel.add(outputArea);
+        panel.add(tools);
+        return panel;
     }
 
     /**

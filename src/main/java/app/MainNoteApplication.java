@@ -27,7 +27,7 @@ import view.NotesView;
  * The main application to boot the program.
  */
 public class MainNoteApplication {
-    static final int WIDTH = 850;
+    static final int WIDTH = 1100;
     static final int HEIGHT = 500;
 
     public static void main(String[] args) {
