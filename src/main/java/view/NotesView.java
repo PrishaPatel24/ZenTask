@@ -179,6 +179,8 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
                 evt -> {
                     if (evt.getSource().equals(aiButton)) {
                         aiController.generateResponse(noteInputField.getText());
+                      // Jenna, you may need to call some method since you cannot create an instance of Note here.
+                        aiController.generateResponse(new Note(notesTextArea.getText(), "NA"));
                     }
                 }
         );
@@ -232,5 +234,12 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
         this.aiController = aiController;
     }
 
+    /**
+     * Updates the display of the un-editable text area.
+     * @param newNote The new note to display.
+     */
+    public void displayNewNote(Note newNote) {
+        notesTextArea.setText(newNote.getContent());
+    }
     // add methods for other controllers here
 }

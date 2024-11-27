@@ -1,6 +1,5 @@
 package interface_adapter.add_task;
 
-import interface_adapter.ViewModel;
 import use_cases.add_task.AddTaskOutputBoundary;
 import use_cases.add_task.AddTaskOutputData;
 
@@ -19,12 +18,13 @@ public class AddTaskPresenter implements AddTaskOutputBoundary {
         // On success, add task to the view.
 
         final TaskState taskState = taskViewModel.getState();
-        taskState.setTask(response.getDescription());
+        taskState.addTask(response.getDescription());
         taskState.setError(null);
         this.taskViewModel.setState(taskState);
         taskViewModel.firePropertyChanged();
     }
 
+    // Will not need fail view (there's no way to fail adding a task)
     @Override
     public void prepareFailView(String error) {
         final TaskState taskState = taskViewModel.getState();

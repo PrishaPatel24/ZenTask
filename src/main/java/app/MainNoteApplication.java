@@ -4,9 +4,16 @@ import data_access.InMemoryNoteDataAccessObject;
 import interface_adapter.add_task.AddTaskController;
 import interface_adapter.add_task.AddTaskPresenter;
 import interface_adapter.add_task.TaskViewModel;
+
 import interface_adapter.note.NoteController;
 import interface_adapter.note.NotePresenter;
 import interface_adapter.note.NoteViewModel;
+
+import interface_adapter.ai.AiController;
+import interface_adapter.ai.AiPresenter;
+
+import interface_adapter.calendar.CalendarController;
+import interface_adapter.calendar.CalendarPresenter;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -15,9 +22,21 @@ import java.awt.*;
 import use_cases.add_task.AddTaskInputBoundary;
 import use_cases.add_task.AddTaskInteractor;
 import use_cases.add_task.AddTaskOutputBoundary;
+
 import use_cases.note.NoteInputBoundary;
 import use_cases.note.NoteInteractor;
 import use_cases.note.NoteOutputBoundary;
+
+import use_cases.ai.AiInputBoundary;
+import use_cases.ai.AiInteractor;
+import use_cases.ai.AiOutputBoundary;
+import use_cases.ai.AiRequest;
+
+import use_cases.calendar.CalendarInputBoundary;
+import use_cases.calendar.CalendarInteractor;
+import use_cases.calendar.CalendarOutputBoundary;
+import use_cases.calendar.CalendarRequest;
+
 import view.CalendarView;
 import view.ChecklistView;
 import view.DashboardView;
@@ -37,7 +56,7 @@ public class MainNoteApplication {
 
             final JPanel dashboardPanel = new DashboardView();
             final JPanel notesPanel = createNotes();
-            final JPanel calendarPanel = new CalendarView();
+            final JPanel calendarPanel = createCalendar();
             final JPanel checklistPanel = createChecklist();
 
             cardPanel.add(dashboardPanel, "Dashboard");
@@ -89,9 +108,12 @@ public class MainNoteApplication {
     }
 
     private static JPanel createCalendar() {
-        final JPanel calendarPanel = new JPanel();
-        calendarPanel.add(new JLabel("Your calendar would be displayed here"));
-        return calendarPanel;
+        final CalendarView calendarView = new CalendarView();
+        final CalendarOutputBoundary calendarPresenter = new CalendarPresenter(calendarView);
+        final CalendarInputBoundary calendarInteractor = new CalendarInteractor(calendarPresenter, new CalendarRequest());
+        final CalendarController calendarController = new CalendarController(calendarInteractor);
+        calendarView.setCalendarController(calendarController);
+        return calendarView;
     }
 
     private static JPanel createNotes() {
@@ -102,6 +124,13 @@ public class MainNoteApplication {
         final NoteController controller = new NoteController(noteInteractor);
         final NotesView notesView = new NotesView(noteViewModel);
         notesView.setNoteController(controller);
+      
+        final AiOutputBoundary aiPresenter = new AiPresenter(notesView);
+        final AiRequest aiRequest = new AiRequest();
+        final AiInputBoundary aiInteractor = new AiInteractor(aiPresenter, aiRequest);
+        final AiController aiController = new AiController(aiInteractor);
+        notesView.setAiController(aiController);
+      
         return notesView;
     }
 
@@ -112,6 +141,7 @@ public class MainNoteApplication {
         final AddTaskController controller = new AddTaskController(addTaskUseCaseInteractor);
         final ChecklistView checklistView = new ChecklistView(taskViewModel);
         checklistView.setTaskController(controller);
+        taskViewModel.firePropertyChanged();
         return checklistView;
     }
 }

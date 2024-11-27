@@ -34,14 +34,6 @@ public class MainNoteApplicationTest {
                 return note;
             }
         };
-
-        final NoteAppBuilder builder = new NoteAppBuilder();
-        app = builder.addNoteDAO(noteDataAccess)
-                .addNoteView()
-                .addNoteUseCase().build();
-
-        app.setVisible(true);
-
     }
 
     /**
