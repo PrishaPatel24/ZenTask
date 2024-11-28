@@ -1,10 +1,17 @@
 package app;
 
+import data_access.InMemoryNoteDataAccessObject;
 import interface_adapter.add_task.AddTaskController;
 import interface_adapter.add_task.AddTaskPresenter;
 import interface_adapter.add_task.TaskViewModel;
+
+import interface_adapter.note.NoteController;
+import interface_adapter.note.NotePresenter;
+import interface_adapter.note.NoteViewModel;
+
 import interface_adapter.ai.AiController;
 import interface_adapter.ai.AiPresenter;
+
 import interface_adapter.calendar.CalendarController;
 import interface_adapter.calendar.CalendarPresenter;
 import org.jetbrains.annotations.NotNull;
@@ -15,14 +22,21 @@ import java.awt.*;
 import use_cases.add_task.AddTaskInputBoundary;
 import use_cases.add_task.AddTaskInteractor;
 import use_cases.add_task.AddTaskOutputBoundary;
+
+import use_cases.note.NoteInputBoundary;
+import use_cases.note.NoteInteractor;
+import use_cases.note.NoteOutputBoundary;
+
 import use_cases.ai.AiInputBoundary;
 import use_cases.ai.AiInteractor;
 import use_cases.ai.AiOutputBoundary;
 import use_cases.ai.AiRequest;
+
 import use_cases.calendar.CalendarInputBoundary;
 import use_cases.calendar.CalendarInteractor;
 import use_cases.calendar.CalendarOutputBoundary;
 import use_cases.calendar.CalendarRequest;
+
 import view.CalendarView;
 import view.ChecklistView;
 import view.DashboardView;
@@ -32,7 +46,7 @@ import view.NotesView;
  * The main application to boot the program.
  */
 public class MainNoteApplication {
-    static final int WIDTH = 850;
+    static final int WIDTH = 1100;
     static final int HEIGHT = 500;
 
     public static void main(String[] args) {
@@ -103,12 +117,20 @@ public class MainNoteApplication {
     }
 
     private static JPanel createNotes() {
-        final NotesView notesView = new NotesView();
+        final NoteViewModel noteViewModel = new NoteViewModel();
+        final NoteOutputBoundary notePresenter = new NotePresenter(noteViewModel);
+        final InMemoryNoteDataAccessObject inMemoryNoteDAO = new InMemoryNoteDataAccessObject();
+        final NoteInputBoundary noteInteractor = new NoteInteractor(notePresenter, inMemoryNoteDAO);
+        final NoteController controller = new NoteController(noteInteractor);
+        final NotesView notesView = new NotesView(noteViewModel);
+        notesView.setNoteController(controller);
+      
         final AiOutputBoundary aiPresenter = new AiPresenter(notesView);
         final AiRequest aiRequest = new AiRequest();
         final AiInputBoundary aiInteractor = new AiInteractor(aiPresenter, aiRequest);
         final AiController aiController = new AiController(aiInteractor);
         notesView.setAiController(aiController);
+      
         return notesView;
     }
 

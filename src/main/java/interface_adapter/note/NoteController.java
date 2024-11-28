@@ -1,6 +1,7 @@
 package interface_adapter.note;
 
 import use_cases.note.NoteInputBoundary;
+import use_cases.note.NoteInputData;
 
 /**
  * Controller for our Note related Use Cases.
@@ -15,14 +16,12 @@ public class NoteController {
 
     /**
      * Executes the Note related Use Cases.
-     * @param note the note to be recorded
+     * @param content the content of the note being worked on
+     * @param title the title of the note
      */
-    public void execute(String note) {
-        if (note != null) {
-            noteInteractor.executeSave(note);
-        }
-        else {
-            noteInteractor.executeRefresh();
-        }
+    public void execute(String content, String title) {
+        final NoteInputData newNote = new NoteInputData(content, title);
+        noteInteractor.execute(newNote);
     }
+
 }
