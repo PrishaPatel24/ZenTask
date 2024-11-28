@@ -14,14 +14,14 @@ public class NoteTranslation {
      * @param inputData the input data containing the text to translate and the selected language
      * @return NoteOutputData containing the translation
      */
-    public static NoteOutputData translate(NoteInputData inputData) {
+    public static TranslationOutputData translate(TranslationInputData inputData) {
         final int characterLimit = 2000;
         final String textToTranslate = inputData.getTextToTranslate();
         final String selectedLanguage = inputData.getSelectedLanguage();
 
         // checking if length of text exceeds char limit
         if (textToTranslate.length() > characterLimit) {
-            return new NoteOutputData("Exceeded character limit");
+            return new TranslationOutputData("Exceeded character limit");
         }
 
         final String translation;
@@ -42,6 +42,6 @@ public class NoteTranslation {
                 translation = textToTranslate;
         }
 
-        return new NoteOutputData(translation);
+        return new TranslationOutputData(translation);
     }
 }

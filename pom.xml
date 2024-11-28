@@ -31,7 +31,7 @@
         </dependency>
 
         <dependency>
-            <groupId>       com.cohere</groupId>
+            <groupId>com.cohere</groupId>
             <artifactId>cohere-java</artifactId>
             <version>1.4.1</version>
         </dependency>

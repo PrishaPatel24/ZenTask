@@ -2,14 +2,13 @@ package view;
 
 import entity.Note;
 import interface_adapter.ai.AiController;
-import use_cases.ai.AiInteractor;
-import use_cases.note.NoteInputData;
-import use_cases.note.NoteOutputData;
-import use_cases.note.NoteTranslation;
+import interface_adapter.translation.TranslationController;
 
 import javax.swing.*;
-import java.awt.*;
 
+/**
+ * View for the Notes.
+ */
 public class NotesView extends JPanel {
     private final JTextArea notesTextArea;
     private final JPanel toolBarPanel;
@@ -17,6 +16,7 @@ public class NotesView extends JPanel {
     private final JButton languageButton;
     private final JTextArea outputArea;
     private AiController aiController;
+    private TranslationController translationController;
     // add controllers and other view methods as necessary for language and note use cases
 
     public NotesView() {
@@ -60,9 +60,7 @@ public class NotesView extends JPanel {
                         else {
                             final String selectedLanguage = (String) languageDropdown.getSelectedItem();
                             final String textInput = notesTextArea.getText();
-                            final NoteInputData inputData = new NoteInputData(textInput, selectedLanguage);
-                            final NoteOutputData outputData = NoteTranslation.translate(inputData);
-                            outputArea.setText(outputData.getTranslatedText());
+                            translationController.translateNote(textInput, selectedLanguage);
                             languageDropdown.setVisible(false);
                         }
                     }
@@ -73,6 +71,18 @@ public class NotesView extends JPanel {
         toolBarPanel.add(outputArea);
 
         this.add(toolBarPanel);
+    }
+
+    /**
+     * updates the translation.
+     * @param translatedText text that has been translated
+     */
+    public void updateTranslation(String translatedText) {
+        outputArea.setText(translatedText);
+    }
+
+    public void setTranslationController(TranslationController translationController) {
+        this.translationController = translationController;
     }
 
     public void setAiController(AiController aiController) {
