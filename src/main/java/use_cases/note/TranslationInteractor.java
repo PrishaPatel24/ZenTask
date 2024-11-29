@@ -17,7 +17,7 @@ public class TranslationInteractor implements TranslationInputBoundary {
      * @param inputData contains text to be translated and selected language
      */
     public void translateNote(TranslationInputData inputData) {
-        final TranslationOutputData outputData = NoteTranslation.translate(inputData);
+        final TranslationOutputData outputData = TranslationFactory.translate(inputData);
         outputBoundary.updateTranslation(outputData);
     }
 }

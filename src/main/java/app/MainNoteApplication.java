@@ -27,6 +27,7 @@ import use_cases.calendar.CalendarOutputBoundary;
 import use_cases.calendar.CalendarRequest;
 import use_cases.note.TranslationInputBoundary;
 import use_cases.note.TranslationInteractor;
+import use_cases.note.TranslationOutputBoundary;
 import view.CalendarView;
 import view.ChecklistView;
 import view.DashboardView;
@@ -114,7 +115,7 @@ public class MainNoteApplication {
         final AiController aiController = new AiController(aiInteractor);
         notesView.setAiController(aiController);
 
-        final TranslationPresenter translationPresenter = new TranslationPresenter(notesView);
+        final TranslationOutputBoundary translationPresenter = new TranslationPresenter(notesView);
         final TranslationInputBoundary translationInteractor = new TranslationInteractor(translationPresenter);
         final TranslationController translationController = new TranslationController(translationInteractor);
         notesView.setTranslationController(translationController);

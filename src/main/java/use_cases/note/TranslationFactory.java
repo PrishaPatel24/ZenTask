@@ -6,7 +6,7 @@ import space.dynomake.libretranslate.Translator;
 /**
  * Class for note translation.
  */
-public class NoteTranslation {
+public class TranslationFactory {
 
     /**
      * Translates text from english to other language.
