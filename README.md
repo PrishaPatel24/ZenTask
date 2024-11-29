@@ -32,6 +32,15 @@ To keep track of things, you can tick off tasks as you go about completing them.
 
 
 ## Features of the Software
+There are three major components of this software: Calendar, Checklist and Notes. 
+So, upon running the program, the user first sees "Welcome to your Dashboard" 
+// TODO: add a screenshot
+On the left of the Dashboard, the user sees three tabs: Calendar, Notes and Checklist. 
+
+#### Calendar
+The user can easily migrate to the Calendar tab by clicking on it.
+// TODO: add a screenshot
+Now, the user is on the calendar. They are prompter to log in...
 
 ## Installation Instructions
 
