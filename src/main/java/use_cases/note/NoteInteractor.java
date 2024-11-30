@@ -21,10 +21,17 @@ public class NoteInteractor implements NoteInputBoundary {
     @Override
     public void execute(NoteInputData noteInputData) {
         final Note note = new Note(noteInputData.getContent(), noteInputData.getTitle());
-        inMemoryNoteDataAccessObject.saveNote(noteInputData.getContent(), note);
+        if (this.inMemoryNoteDataAccessObject.getNotes() != null) {
+            for (String title : this.inMemoryNoteDataAccessObject.getNotes()) {
+                if (noteInputData.getTitle().equals(title)) {
+                    this.notePresenter.prepareFailView(
+                            "Title already exists. Multiple notes cannot have the same title.");
+                }
+            }
+        } // TODO: Check if this works
+        this.inMemoryNoteDataAccessObject.saveNote(noteInputData.getContent(), note);
         final NoteOutputData noteOutputData = new NoteOutputData(note.getTitle(), false);
         this.notePresenter.prepareSuccessView(noteOutputData.getContent());
     }
-
 }
 
