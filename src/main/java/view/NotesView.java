@@ -38,6 +38,7 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
 
     private JLabel noteName;
     private JTextArea noteInputField;
+    private JTextArea outputArea;
 
     private JButton saveNoteButton;
     private JButton uploadButton;
@@ -197,7 +198,7 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
         );
         tools.add(languageButton);
 
-        final JTextArea outputArea = new JTextArea();
+        outputArea = new JTextArea();
         outputArea.setEditable(false);
 
         panel.add(outputArea);

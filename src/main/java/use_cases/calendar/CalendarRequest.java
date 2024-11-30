@@ -45,9 +45,10 @@ public class CalendarRequest {
 
     /**
      * Creates credentials.
+     *
      * @return Calendar.
      * @throws GeneralSecurityException exception.
-     * @throws IOException exception.
+     * @throws IOException              exception.
      */
     public static Calendar getCalendarService() throws GeneralSecurityException, IOException {
         // Load the service account key JSON file
@@ -69,9 +70,10 @@ public class CalendarRequest {
 
     /**
      * Retrieves calendar events, first 10 of them.
+     *
      * @return List of events.
      * @throws GeneralSecurityException exception.
-     * @throws IOException exception.
+     * @throws IOException              exception.
      */
     public List<Event> getCalendarEvents() throws GeneralSecurityException, IOException {
         final Calendar service = getCalendarService();
@@ -83,8 +85,7 @@ public class CalendarRequest {
         final List<Event> items = events.getItems();
         if (items.isEmpty()) {
             System.out.println("No upcoming events found.");
-        }
-        else {
+        } else {
             System.out.println("Upcoming events:");
             for (Event event : items) {
                 DateTime start = event.getStart().getDateTime();
@@ -96,3 +97,4 @@ public class CalendarRequest {
         }
         return items;
     }
+}
