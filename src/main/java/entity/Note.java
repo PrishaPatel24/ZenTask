@@ -5,8 +5,8 @@ package entity;
  */
 public class Note {
 
-    private final String content;
-    private final String title;
+    private String content;
+    private String title;
 
     public Note(String content, String title) {
         this.content = content;
@@ -20,12 +20,12 @@ public class Note {
     public String getTitle() {
         return title;
     }
-  
+
     public void setContent(String newContent) {
         this.content = newContent;
     }
 
-    public String setTitle(newTitle){
-         this.title = newTitle;
+    public void setTitle(String newTitle) {
+        this.title = newTitle;
     }
 }

@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 
+import entity.Note;
 import org.jetbrains.annotations.NotNull;
 
 import interface_adapter.ai.AiController;
@@ -43,6 +44,8 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
     private JButton uploadButton;
     private JButton clearButton;
     private JButton deleteButton;
+
+    private JTextArea notesTextArea;
 
     private JPanel notePanel;
     private JPanel editPanel;
@@ -162,6 +165,7 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
 
         splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, notePanel, functionalityPanel);
         splitPane.setDividerLocation(DIVIDER);
+
 
         this.add(splitPane);
 
