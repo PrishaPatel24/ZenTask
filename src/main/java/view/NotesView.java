@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+import javax.swing.JComboBox;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -23,6 +24,8 @@ import entity.Note;
 import org.jetbrains.annotations.NotNull;
 
 import interface_adapter.ai.AiController;
+import interface_adapter.translation.TranslationController;
+
 import interface_adapter.note.NoteController;
 import interface_adapter.note.NoteState;
 import interface_adapter.note.NoteViewModel;
@@ -189,11 +192,25 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
         );
         tools.add(aiButton);
 
-        final JButton languageButton = new JButton("Translate to Other Language");
+          // Dropdown menu
+        final String[] languages = {"Russian", "French", "Spanish", "Arabic"};
+        final JComboBox<String> languageDropdown = new JComboBox<>(languages);
+        languageDropdown.setVisible(false);
+        tools.add(languageDropdown);
+  
+        final JButton languageButton = new JButton("Translate");
         languageButton.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(languageButton)) {
-                        // call controller here
+                        if (!languageDropdown.isVisible()) {
+                            languageDropdown.setVisible(true);
+                        }
+                        else {
+                            final String selectedLanguage = (String) languageDropdown.getSelectedItem();
+                            final String textInput = notesTextArea.getText();
+                            translationController.translateNote(textInput, selectedLanguage);
+                            languageDropdown.setVisible(false);
+                        }
                     }
                 }
         );
@@ -231,6 +248,18 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
 
     public void setNoteController(NoteController controller) {
         this.noteController = controller;
+    }
+
+    /**
+     * updates the translation.
+     * @param translatedText text that has been translated
+     */
+    public void updateTranslation(String translatedText) {
+        outputArea.setText(translatedText);
+    }
+
+    public void setTranslationController(TranslationController translationController) {
+        this.translationController = translationController;
     }
 
     public void setAiController(AiController aiController) {

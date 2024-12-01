@@ -14,6 +14,8 @@ import interface_adapter.ai.AiPresenter;
 
 import interface_adapter.calendar.CalendarController;
 import interface_adapter.calendar.CalendarPresenter;
+import interface_adapter.translation.TranslationController;
+import interface_adapter.translation.TranslationPresenter;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -36,6 +38,10 @@ import use_cases.calendar.CalendarInputBoundary;
 import use_cases.calendar.CalendarInteractor;
 import use_cases.calendar.CalendarOutputBoundary;
 import use_cases.calendar.CalendarRequest;
+
+import use_cases.note.TranslationInputBoundary;
+import use_cases.note.TranslationInteractor;
+import use_cases.note.TranslationOutputBoundary;
 
 import view.CalendarView;
 import view.ChecklistView;
@@ -130,7 +136,12 @@ public class MainNoteApplication {
         final AiInputBoundary aiInteractor = new AiInteractor(aiPresenter, aiRequest);
         final AiController aiController = new AiController(aiInteractor);
         notesView.setAiController(aiController);
-      
+
+        final TranslationOutputBoundary translationPresenter = new TranslationPresenter(notesView);
+        final TranslationInputBoundary translationInteractor = new TranslationInteractor(translationPresenter);
+        final TranslationController translationController = new TranslationController(translationInteractor);
+        notesView.setTranslationController(translationController);
+
         return notesView;
     }
 
