@@ -20,7 +20,7 @@ public class Note {
     public String getTitle() {
         return title;
     }
-
+  
     public void setContent(String newContent) {
         this.content = newContent;
     }
@@ -28,4 +28,5 @@ public class Note {
     public void setTitle(String newTitle) {
         this.title = newTitle;
     }
+
 }
