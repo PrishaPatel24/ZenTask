@@ -6,9 +6,9 @@ package use_cases.note;
 public interface NoteOutputBoundary {
     /**
      * Prepares the success view for the Note related Use Cases.
-     * @param message the output data
+     * @param result the output data
      */
-    void prepareSuccessView(String message);
+    void prepareSuccessView(NoteOutputData result);
 
     /**
      * Prepares the failure view for the Note related Use Cases.
