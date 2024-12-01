@@ -60,14 +60,14 @@ Also, the user can prompt AI to complete the note based on what the user has wri
 The user can move to the Checklist tab by clicking the menu on the left of their view. 
 __// TODO: add a screenshot__ 
 Now, the user is on the Checklist tab. 
-On the user's view, the user will sea add task. 
+On the user's view, the user will see add task. 
 __// TODO: add a screenshot__ 
 This will allow the user to make a new checklist or add new tasks to an already existing checklist.
 
 
 ## Installation Instructions
 As the user, you should ensure that their IDE is working and already setup. If you need any help setting up, 
-[visit here](https://www.jetbrains.com/help/idea/getting-started.html).
+[visit here](https://www.jetbrains.com/help/idea/getting-started.html). The program can be run on any OS.
 To run the program, there are two options:
 1. __Through the IDE:__
    1. First, you have to clone the repo, by using [this URL](https://github.com/PrishaPatel24/ZenTask.git).  
