@@ -1,8 +1,5 @@
 package use_cases.note;
 
-import data_access.InMemoryNoteDataAccessObject;
-import entity.Note;
-
 /**
  * The "Use Case Interactor" for our two note-related use cases of refreshing
  * the contents of the note and saving the contents of the note. Since they
@@ -11,20 +8,19 @@ import entity.Note;
 public class NoteInteractor implements NoteInputBoundary {
 
     private final NoteOutputBoundary notePresenter;
-    private final InMemoryNoteDataAccessObject inMemoryNoteDataAccessObject;
+    private final NoteDataAccessInterface inMemoryNoteDataAccessObject;
 
-    public NoteInteractor(NoteOutputBoundary noteOutputBoundary, InMemoryNoteDataAccessObject inMemoryNoteDAO) {
+    public NoteInteractor(NoteOutputBoundary noteOutputBoundary, NoteDataAccessInterface inMemoryNoteDAO) {
         this.notePresenter = noteOutputBoundary;
         this.inMemoryNoteDataAccessObject = inMemoryNoteDAO;
     }
 
     @Override
     public void execute(NoteInputData noteInputData) {
-        final Note note = new Note(noteInputData.getContent(), noteInputData.getTitle());
-        inMemoryNoteDataAccessObject.saveNote(noteInputData.getContent(), note);
-        final NoteOutputData noteOutputData = new NoteOutputData(note.getTitle(), false);
+        this.inMemoryNoteDataAccessObject.saveNote(noteInputData.getTitle(), noteInputData.getContent());
+
+        final NoteOutputData noteOutputData = new NoteOutputData(noteInputData.getTitle(), false);
         this.notePresenter.prepareSuccessView(noteOutputData.getContent());
     }
-
 }
 

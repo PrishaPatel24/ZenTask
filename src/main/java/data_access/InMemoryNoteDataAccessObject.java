@@ -1,6 +1,8 @@
 package data_access;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import entity.Note;
@@ -11,18 +13,19 @@ import use_cases.note.NoteDataAccessInterface;
  * This does not persist data between runs of the program.
  */
 public class InMemoryNoteDataAccessObject implements NoteDataAccessInterface {
-    private final Map<String, Note> notes;
+    private final Map<String, String> notes;
 
     public InMemoryNoteDataAccessObject() {
         this.notes = new HashMap<>();
     }
 
     @Override
-    public void saveNote(String title, Note note) {
+    public void saveNote(String title, String note) {
         this.notes.put(title, note);
     }
 
-    public String[] getNotes() {
-        return this.notes.keySet().toArray(new String[0]);
+    @Override
+    public List<String> getNotes() {
+        return new ArrayList<>(this.notes.keySet());
     }
 }

@@ -19,6 +19,6 @@ public class NoteTest {
     @Test
     public void getDateTest() {
         final Note testNote = new Note("content of note is here", "2024-11-18");
-        assert testNote.getCreationDate().equals("2024-11-18");
+        assert testNote.getTitle().equals("2024-11-18");
     }
 }

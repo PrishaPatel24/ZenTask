@@ -1,5 +1,7 @@
 package use_cases.note;
 
+import java.util.List;
+
 import entity.Note;
 
 /**
@@ -10,9 +12,14 @@ public interface NoteDataAccessInterface {
 
     /**
      * Saves a note.
-     * <p>The password of the user must match that of the user saved in the system.</p>
-     * @param title the title associated with the note
-     * @param note the note to be saved
+     * @param title the title associated with the note.
+     * @param note the note to be saved.
      */
-    void saveNote(String title, Note note);
+    void saveNote(String title, String note);
+
+    /**
+     * Creates an "in-memory" database of all notes saved in the program.
+     * @return a list of the titles of all notes that have been saved.
+     */
+    List<String> getNotes();
 }
