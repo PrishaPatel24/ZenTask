@@ -1,8 +1,6 @@
 package use_cases.note;
 
 import data_access.InMemoryNoteDataAccessObject;
-import entity.Note;
-import entity.User;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -19,8 +17,7 @@ public class NoteInteractorTest {
         NoteOutputBoundary successPresenter = new NoteOutputBoundary() {
             @Override
             public void prepareSuccessView(String message) {
-                assertEquals("This is a sample note! This tests to see if the note is properly saved. ",
-                        inputData.getContent());
+                assertEquals("Use case success is expected","This is a sample note! This tests to see if the note is properly saved. ", inputData.getContent());
             }
 
             @Override
