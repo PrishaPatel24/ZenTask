@@ -1,8 +1,8 @@
 package use_cases.note;
 
-import java.util.List;
-
 import entity.Note;
+
+import java.util.List;
 
 /**
  * Interface for the NoteDAO. It consists of methods for
@@ -18,8 +18,15 @@ public interface NoteDataAccessInterface {
     void saveNote(String title, String note);
 
     /**
-     * Creates an "in-memory" database of all notes saved in the program.
-     * @return a list of the titles of all notes that have been saved.
+     * This will be used to check that no two notes have the same title.
+     * @return A list of saved notes.
      */
-    List<String> getNotes();
+    List<String> getNotesSaved();
+
+    /**
+     * This returns the note as an object that has been stored in memory.
+     * @param title this is used as a unique identifier to retrieve a note.
+     * @return note if it is saved in memory.
+     */
+    Note getNote(String title);
 }

@@ -53,8 +53,6 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
     private JPanel editPanel;
     private JPanel savePanel;
 
-    private JSplitPane splitPane;
-
     public NotesView(NoteViewModel noteViewModel) {
         this.noteViewModel = noteViewModel;
         this.noteViewModel.addPropertyChangeListener(this);
@@ -79,7 +77,6 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
         noteName = new JLabel("New Note");
 
         noteInputField = new JTextArea();
-        noteInputField.setText("Create New Note...");
 
         saveNoteButton = new JButton("Save Note");
         uploadButton = new JButton("Upload");
@@ -100,7 +97,7 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
         if (actionEvent.getSource().equals(saveNoteButton)) {
             final String newNoteName = JOptionPane.showInputDialog("Enter new note name");
             noteName.setText(newNoteName);
-            noteController.execute(noteInputField.getText(), noteName.getText());
+            noteController.execute(noteName.getText(), noteInputField.getText());
 
         }
 
@@ -166,7 +163,7 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
 
         final JPanel functionalityPanel = getjPanel();
 
-        splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, notePanel, functionalityPanel);
+        final JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, notePanel, functionalityPanel);
         splitPane.setDividerLocation(DIVIDER);
 
         this.add(splitPane);
@@ -244,6 +241,7 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
 
     private void setFields(NoteState state) {
         noteInputField.setText(state.getNote());
+        noteName.setText(state.getTitle());
     }
 
     public void setNoteController(NoteController controller) {

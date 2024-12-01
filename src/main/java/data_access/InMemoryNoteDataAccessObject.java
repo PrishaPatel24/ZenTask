@@ -25,7 +25,18 @@ public class InMemoryNoteDataAccessObject implements NoteDataAccessInterface {
     }
 
     @Override
-    public List<String> getNotes() {
+    public List<String> getNotesSaved() {
         return new ArrayList<>(this.notes.keySet());
+    }
+
+    @Override
+    public Note getNote(String title) {
+        Note note = null;
+        for (Map.Entry<String, String> entry : this.notes.entrySet()) {
+            if (entry.getKey().equals(title)) {
+                note = new Note(entry.getKey(), entry.getValue());
+            }
+        }
+        return note;
     }
 }

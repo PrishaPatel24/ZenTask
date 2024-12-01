@@ -50,7 +50,7 @@ The user then has the option to add event to their already existing calendar tha
 The user can also go to the Notes tab by clicking the menu on the left of their view. 
 __// TODO: add a screenshot__ 
 Now, the user is on the Notes tab.
-On the left side of the user's view, they can create a new note by simply typing into the provided area that says "*_Create Note_*"
+On the left side of the user's view, they can create a new note by simply typing into the provided area.
 The user also has the option of uploading text from an already existing file. 
 __// I am thinking of any style functions and undo, and redo...//__ 
 As additional functionalities, the user can translate existing text on their notes to either French, Spanish, Russian.
@@ -66,6 +66,7 @@ This will allow the user to make a new checklist or add new tasks to an already 
 
 
 ## Installation Instructions
+__Note:__ the program can be run on any operating systems.
 As the user, you should ensure that their IDE is working and already setup. If you need any help setting up, 
 [visit here](https://www.jetbrains.com/help/idea/getting-started.html). The program can be run on any OS.
 To run the program, there are two options:
