@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 
+import entity.Note;
 import org.jetbrains.annotations.NotNull;
 
 import interface_adapter.ai.AiController;
@@ -75,6 +76,7 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
         noteName = new JLabel("New Note");
 
         noteInputField = new JTextArea();
+        noteInputField.setText("Create New Note...");
 
         saveNoteButton = new JButton("Save Note");
         uploadButton = new JButton("Upload");
@@ -179,7 +181,6 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
         aiButton.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(aiButton)) {
-                        aiController.generateResponse(noteInputField.getText());
                         aiController.generateResponse(new Note(noteInputField.getText(), "NA"));
                         // Jenna, you may need to call some method since you cannot create an instance of Note here.
 
@@ -241,7 +242,7 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
      * @param newNote The new note to display.
      */
     public void displayNewNote(Note newNote) {
-        notesTextArea.setText(newNote.getContent());
+        outputArea.setText(newNote.getContent());
     }
     // add methods for other controllers here
 }

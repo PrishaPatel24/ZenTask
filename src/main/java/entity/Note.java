@@ -26,6 +26,7 @@ public class Note {
     }
 
     public void setTitle(String newTitle) {
-         this.title = newTitle;
+         title = newTitle;
     }
+
 }
