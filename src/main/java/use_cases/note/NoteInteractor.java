@@ -19,19 +19,24 @@ public class NoteInteractor implements NoteInputBoundary {
 
     @Override
     public void execute(NoteInputData noteInputData) {
-        if (!(inMemoryNoteDataAccessObject.getNotesSaved()).contains(noteInputData.getTitle())) {
-            inMemoryNoteDataAccessObject.saveNote(noteInputData.getTitle(), noteInputData.getContent());
-            final Note note = inMemoryNoteDataAccessObject.getNote(noteInputData.getTitle());
-            final NoteOutputData noteOutputData = new NoteOutputData(note.getTitle(), note.getContent(), false);
-            notePresenter.prepareSuccessView(noteOutputData);
+        if (noteInputData.getTitle() == null || noteInputData.getTitle().isEmpty()) {
+            notePresenter.prepareFailView("Note cannot be saved!");
         }
         else {
-            notePresenter.prepareFailView("Note cannot be saved! Title: "
-                    + noteInputData.getTitle() + "already exists!");
-        }
+            if (!(inMemoryNoteDataAccessObject.getNotesSaved()).contains(noteInputData.getTitle())) {
+                inMemoryNoteDataAccessObject.saveNote(noteInputData.getTitle(), noteInputData.getContent());
+                final Note note = inMemoryNoteDataAccessObject.getNote(noteInputData.getTitle());
+                final NoteOutputData noteOutputData = new NoteOutputData(note.getTitle(), note.getContent(), false);
+                notePresenter.prepareSuccessView(noteOutputData);
+            }
+            else {
+                notePresenter.prepareFailView("Note cannot be saved! Title: "
+                        + noteInputData.getTitle() + "already exists!");
+            }
 
-        if (inMemoryNoteDataAccessObject.getNote(noteInputData.getTitle()) == null) {
-            notePresenter.prepareFailView("Note did not save!");
+            if (inMemoryNoteDataAccessObject.getNote(noteInputData.getTitle()) == null) {
+                notePresenter.prepareFailView("Note did not save!");
+            }
         }
     }
 }

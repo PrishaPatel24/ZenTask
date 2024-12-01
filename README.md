@@ -34,17 +34,18 @@ To keep track of things, you can tick off tasks as you go about completing them.
 ## Features of the Software
 There are three major components of this software: Calendar, Checklist and Notes.
 So, upon running the program, the user first sees "Welcome to your Dashboard" 
-__// TODO: add a screenshot__ 
-On the left of the Dashboard, the user sees three tabs: Calendar, Notes and Checklist.
+[Click here](images/dashboard.png) 
+ On the left of the Dashboard, the user sees three tabs: Calendar, Notes and Checklist.
 
 ### Calendar
 The user can easily migrate to the Calendar tab by clicking on it. 
 __// TODO: add a screenshot__ 
-Now, the user is on the Calendar tab. They are prompter to log in their __Google Account__. 
+Now, the user is on the Calendar tab. They are prompter to __Login to Google Calendar here__. 
 __// TODO: add a screenshot__ 
 This displays the events the user has logged in on their Google calendar.
 The user then has the option to add event to their already existing calendar that was retrieved by logging into their Google account.
-(The user has the option of creating a new calendar, without having to log into their Google account?)
+
+[//]: # (&#40;The user has the option of creating a new calendar, without having to log into their Google account?&#41;)
 
 ### Notes
 The user can also go to the Notes tab by clicking the menu on the left of their view. 

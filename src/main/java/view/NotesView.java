@@ -19,7 +19,6 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 
-import entity.Note;
 import org.jetbrains.annotations.NotNull;
 
 import interface_adapter.ai.AiController;
@@ -95,7 +94,10 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
             final String newNoteName = JOptionPane.showInputDialog("Enter new note name");
             noteName.setText(newNoteName);
             noteController.execute(noteName.getText(), noteInputField.getText());
-
+            if (newNoteName != null) {
+                final JOptionPane optionPane = new JOptionPane();
+                optionPane.showMessageDialog(null, "Note saved successfully");
+            }
         }
 
     }
@@ -178,7 +180,7 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
         aiButton.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(aiButton)) {
-                        aiController.generateResponse(new Note(noteInputField.getText(), "NA"));
+                        aiController.generateResponse(noteInputField.getText());
                         // Jenna, you may need to call some method since you cannot create an instance of Note here.
 
                     }
@@ -239,8 +241,8 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
      * Updates the display of the un-editable text area.
      * @param newNote The new note to display.
      */
-    public void displayNewNote(Note newNote) {
-        outputArea.setText(newNote.getContent());
+    public void displayNewNote(String newNote) {
+        outputArea.setText(newNote);
     }
     // add methods for other controllers here
 }
