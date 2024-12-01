@@ -1,6 +1,6 @@
 package use_cases.note;
 
-import entity.User;
+import data_access.InMemoryNoteDataAccessObject;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -8,39 +8,25 @@ import static org.junit.Assert.*;
 public class NoteInteractorTest {
 
     @Test
-    public void testExecuteRefreshSuccess() {
+    public void testExecuteSaveSuccess() {
+        NoteInputData inputData = new NoteInputData("Test note", "This is a sample note! " +
+                "This tests to see if the note is properly saved. ");
+        NoteDataAccessInterface noteDataAccess = new InMemoryNoteDataAccessObject();
+        noteDataAccess.saveNote(inputData.getTitle(), inputData.getContent());
 
-        NoteDataAccessInterface noteDAO = new NoteDataAccessInterface() {
-
-
-            @Override
-            public String saveNote(User user, String note) {
-                return "";
-            }
-
-
-            @Override
-            public String loadNote(User user) {
-                return "test";
-            }
-        };
-
-        NoteOutputBoundary noteOB = new NoteOutputBoundary() {
+        NoteOutputBoundary successPresenter = new NoteOutputBoundary() {
             @Override
             public void prepareSuccessView(String message) {
-                assertEquals("test", message);
+                assertEquals("Use case success is expected","This is a sample note! This tests to see if the note is properly saved. ", inputData.getContent());
             }
 
             @Override
             public void prepareFailView(String errorMessage) {
-                fail(errorMessage);
+                fail("Use case failure is unexpected.");
             }
         };
 
-        NoteInteractor noteInteractor = new NoteInteractor(noteDAO, noteOB);
-
-        noteInteractor.executeRefresh();
-
-
+        NoteInputBoundary noteInteractor = new NoteInteractor(successPresenter, noteDataAccess);
+        noteInteractor.execute(inputData);
     }
 }

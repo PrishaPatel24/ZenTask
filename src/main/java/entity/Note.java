@@ -6,22 +6,27 @@ package entity;
 public class Note {
 
     private String content;
-    private final String creationDate;
+    private String title;
 
-    public Note(String content, String creationDate) {
+    public Note(String content, String title) {
         this.content = content;
-        this.creationDate = creationDate;
+        this.title = title;
     }
 
     public String getContent() {
         return content;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public String getTitle() {
+        return title;
+    }
+  
+    public void setContent(String newContent) {
+        this.content = newContent;
     }
 
-    public String getCreationDate() {
-        return creationDate;
+    public void setTitle(String newTitle) {
+         title = newTitle;
     }
+
 }
