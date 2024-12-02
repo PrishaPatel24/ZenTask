@@ -1,6 +1,7 @@
 package use_cases.calendar;
 
-import entity.Event;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 /**
  * The input boundary taking in an event.
@@ -8,7 +9,7 @@ import entity.Event;
 public interface CalendarInputBoundary {
     /**
      * Executes the calendar use case.
-     * @param event to be executed
+     * @param email to be executed
      */
-    void execute(Event event);
+    void execute(String email) throws GeneralSecurityException, IOException;
 }

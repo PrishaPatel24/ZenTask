@@ -49,6 +49,8 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
     private JButton clearButton;
     private JButton deleteButton;
 
+    private JTextArea notesTextArea;
+
     private JPanel notePanel;
     private JPanel editPanel;
     private JPanel savePanel;
@@ -168,6 +170,7 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
 
         splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, notePanel, functionalityPanel);
         splitPane.setDividerLocation(DIVIDER);
+
 
         this.add(splitPane);
 
