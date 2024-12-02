@@ -1,5 +1,7 @@
 package use_cases.note;
 
+import entity.Note;
+
 /**
  * The "Use Case Interactor" for our two note-related use cases of refreshing
  * the contents of the note and saving the contents of the note. Since they
@@ -17,10 +19,25 @@ public class NoteInteractor implements NoteInputBoundary {
 
     @Override
     public void execute(NoteInputData noteInputData) {
-        this.inMemoryNoteDataAccessObject.saveNote(noteInputData.getTitle(), noteInputData.getContent());
+        if (noteInputData.getTitle() == null || noteInputData.getTitle().isEmpty()) {
+            notePresenter.prepareFailView("Note cannot be saved!");
+        }
+        else {
+            if (!(inMemoryNoteDataAccessObject.getNotesSaved()).contains(noteInputData.getTitle())) {
+                inMemoryNoteDataAccessObject.saveNote(noteInputData.getTitle(), noteInputData.getContent());
+                final Note note = inMemoryNoteDataAccessObject.getNote(noteInputData.getTitle());
+                final NoteOutputData noteOutputData = new NoteOutputData(note.getTitle(), note.getContent(), false);
+                notePresenter.prepareSuccessView(noteOutputData);
+            }
+            else {
+                notePresenter.prepareFailView("Note cannot be saved! Title: "
+                        + noteInputData.getTitle() + "already exists!");
+            }
 
-        final NoteOutputData noteOutputData = new NoteOutputData(noteInputData.getTitle(), false);
-        this.notePresenter.prepareSuccessView(noteOutputData.getContent());
+            if (inMemoryNoteDataAccessObject.getNote(noteInputData.getTitle()) == null) {
+                notePresenter.prepareFailView("Note did not save!");
+            }
+        }
     }
 }
 

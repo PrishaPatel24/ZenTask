@@ -5,6 +5,7 @@ package interface_adapter.note;
  */
 public class NoteState {
     private String note = "";
+    private String title = "";
     private String error;
 
     public String getNote() {
@@ -21,5 +22,13 @@ public class NoteState {
 
     public String getError() {
         return error;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

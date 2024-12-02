@@ -1,7 +1,5 @@
 package use_cases.ai;
 
-import entity.Note;
-
 /**
  * The class that will implement the different functions of AI in the program.
  * It will generate a completed written version of the current note.
@@ -23,8 +21,8 @@ public class AiInteractor implements AiInputBoundary {
      *
      * @param currNote The call to the AI to complete the current note.
      */
-    public void generateResponse(Note currNote) {
-        final String newNoteContent = aiRequest.generateNotes(currNote.getContent());
-        aiOutputBoundary.updateNote(new Note(newNoteContent, "NA"));
+    public void generateResponse(String currNote) {
+        final String newNoteContent = aiRequest.generateNotes(currNote);
+        aiOutputBoundary.updateNote(newNoteContent);
     }
 }

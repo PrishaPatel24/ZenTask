@@ -20,7 +20,6 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 
-import entity.Note;
 import org.jetbrains.annotations.NotNull;
 
 import interface_adapter.ai.AiController;
@@ -55,8 +54,6 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
     private JPanel editPanel;
     private JPanel savePanel;
 
-    private JSplitPane splitPane;
-
     public NotesView(NoteViewModel noteViewModel) {
         this.noteViewModel = noteViewModel;
         this.noteViewModel.addPropertyChangeListener(this);
@@ -81,7 +78,6 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
         noteName = new JLabel("New Note");
 
         noteInputField = new JTextArea();
-        noteInputField.setText("Create New Note...");
 
         saveNoteButton = new JButton("Save Note");
         uploadButton = new JButton("Upload");
@@ -102,8 +98,11 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
         if (actionEvent.getSource().equals(saveNoteButton)) {
             final String newNoteName = JOptionPane.showInputDialog("Enter new note name");
             noteName.setText(newNoteName);
-            noteController.execute(noteInputField.getText(), noteName.getText());
-
+            noteController.execute(noteName.getText(), noteInputField.getText());
+            if (newNoteName != null) {
+                final JOptionPane optionPane = new JOptionPane();
+                optionPane.showMessageDialog(null, "Note saved successfully");
+            }
         }
 
     }
@@ -168,7 +167,7 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
 
         final JPanel functionalityPanel = getjPanel();
 
-        splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, notePanel, functionalityPanel);
+        final JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, notePanel, functionalityPanel);
         splitPane.setDividerLocation(DIVIDER);
 
 
@@ -187,7 +186,7 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
         aiButton.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(aiButton)) {
-                        aiController.generateResponse(new Note(noteInputField.getText(), "NA"));
+                        aiController.generateResponse(noteInputField.getText());
                         // Jenna, you may need to call some method since you cannot create an instance of Note here.
 
                     }
@@ -247,6 +246,7 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
 
     private void setFields(NoteState state) {
         noteInputField.setText(state.getNote());
+        noteName.setText(state.getTitle());
     }
 
     public void setNoteController(NoteController controller) {
@@ -273,8 +273,8 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
      * Updates the display of the un-editable text area.
      * @param newNote The new note to display.
      */
-    public void displayNewNote(Note newNote) {
-        outputArea.setText(newNote.getContent());
+    public void displayNewNote(String newNote) {
+        outputArea.setText(newNote);
     }
     // add methods for other controllers here
 }

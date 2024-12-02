@@ -1,6 +1,5 @@
 package interface_adapter.ai;
 
-import entity.Note;
 import use_cases.ai.AiOutputBoundary;
 import view.NotesView;
 
@@ -18,7 +17,7 @@ public class AiPresenter implements AiOutputBoundary {
      * Tasked with updating the view of the program with the response.
      * @param note The final output from the AI.
      */
-    public void updateNote(Note note) {
+    public void updateNote(String note) {
         notesView.displayNewNote(note);
     }
 }

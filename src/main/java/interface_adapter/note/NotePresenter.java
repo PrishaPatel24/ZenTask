@@ -1,6 +1,7 @@
 package interface_adapter.note;
 
 import use_cases.note.NoteOutputBoundary;
+import use_cases.note.NoteOutputData;
 
 /**
  * The presenter for our Note viewing and editing program.
@@ -16,11 +17,12 @@ public class NotePresenter implements NoteOutputBoundary {
     /**
      * Prepares the success view for the Note related Use Cases.
      *
-     * @param note the output data
+     * @param result the output data
      */
     @Override
-    public void prepareSuccessView(String note) {
-        noteViewModel.getState().setNote(note);
+    public void prepareSuccessView(NoteOutputData result) {
+        noteViewModel.getState().setNote(result.getContent());
+        noteViewModel.getState().setTitle(result.getTitle());
         noteViewModel.getState().setError(null);
         noteViewModel.firePropertyChanged();
     }

@@ -34,14 +34,16 @@ To keep track of things, you can tick off tasks as you go about completing them.
 ## Features of the Software
 There are three major components of this software: Calendar, Checklist and Notes.
 So, upon running the program, the user first sees "Welcome to your Dashboard" 
-__// TODO: add a screenshot__ 
-On the left of the Dashboard, the user sees three tabs: Calendar, Notes and Checklist.
+[Click here](images/dashboard.png) 
+ On the left of the Dashboard, the user sees three tabs: Calendar, Notes and Checklist.
 
 ### Calendar
 The user can easily migrate to the Calendar tab by clicking on it. 
 __// TODO: add a screenshot__ 
-Now, the user is on the Calendar tab. They are prompted to enter their __Google Email__. 
+
+Now, the user is on the Calendar tab. They are prompter to __Login to Google Calendar here__. 
 __// TODO: add a screenshot__ 
+
 This displays the upcoming events the user has added in on their Google calendar.
 The details displayed are the event summary, location, start time, and description.
 
@@ -54,7 +56,7 @@ integrated to use your new own Google project credentials.
 The user can also go to the Notes tab by clicking the menu on the left of their view. 
 __// TODO: add a screenshot__ 
 Now, the user is on the Notes tab.
-On the left side of the user's view, they can create a new note by simply typing into the provided area that says "*_Create Note_*"
+On the left side of the user's view, they can create a new note by simply typing into the provided area.
 The user also has the option of uploading text from an already existing file. 
 __// I am thinking of any style functions and undo, and redo...//__ 
 As additional functionalities, the user can translate existing text on their notes to either French, Spanish, Russian.
@@ -70,6 +72,7 @@ This will allow the user to make a new checklist or add new tasks to an already 
 
 
 ## Installation Instructions
+__Note:__ the program can be run on any operating systems.
 As the user, you should ensure that their IDE is working and already setup. If you need any help setting up, 
 [visit here](https://www.jetbrains.com/help/idea/getting-started.html). The program can be run on any OS.
 To run the program, there are two options:
