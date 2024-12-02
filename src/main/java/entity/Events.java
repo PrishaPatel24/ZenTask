@@ -7,10 +7,10 @@ import com.google.api.services.calendar.model.EventDateTime;
  */
 public class Events {
 
-    private String name;
-    private EventDateTime datetime;
-    private String location;
-    private String notes;
+    private final String name;
+    private final EventDateTime datetime;
+    private final String location;
+    private final String notes;
 
     public Events(String name, EventDateTime datetime, String location, String notes) {
         this.name = name;
@@ -33,21 +33,5 @@ public class Events {
 
     public String getEventNotes() {
         return notes;
-    }
-
-    public void setEventName(String eventName) {
-        this.name = eventName;
-    }
-
-    public void setEventDatetime(EventDateTime eventDatetime) {
-        this.datetime = eventDatetime;
-    }
-
-    public void setEventLocation(String eventLocation) {
-        this.location = eventLocation;
-    }
-
-    public void setEventNotes(String eventNotes) {
-        this.notes = eventNotes;
     }
 }
