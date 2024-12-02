@@ -14,10 +14,14 @@ import interface_adapter.ai.AiPresenter;
 
 import interface_adapter.calendar.CalendarController;
 import interface_adapter.calendar.CalendarPresenter;
+import interface_adapter.translation.TranslationController;
+import interface_adapter.translation.TranslationPresenter;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 import use_cases.add_task.AddTaskInputBoundary;
 import use_cases.add_task.AddTaskInteractor;
@@ -36,6 +40,10 @@ import use_cases.calendar.CalendarInputBoundary;
 import use_cases.calendar.CalendarInteractor;
 import use_cases.calendar.CalendarOutputBoundary;
 import use_cases.calendar.CalendarRequest;
+
+import use_cases.note.TranslationInputBoundary;
+import use_cases.note.TranslationInteractor;
+import use_cases.note.TranslationOutputBoundary;
 
 import view.CalendarView;
 import view.ChecklistView;
@@ -56,7 +64,13 @@ public class MainNoteApplication {
 
             final JPanel dashboardPanel = new DashboardView();
             final JPanel notesPanel = createNotes();
-            final JPanel calendarPanel = createCalendar();
+            final JPanel calendarPanel;
+            try {
+                calendarPanel = createCalendar();
+            }
+            catch (GeneralSecurityException | IOException exception) {
+                throw new RuntimeException(exception);
+            }
             final JPanel checklistPanel = createChecklist();
 
             cardPanel.add(dashboardPanel, "Dashboard");
@@ -89,12 +103,9 @@ public class MainNoteApplication {
         final JButton showChecklistButton = new JButton("Checklist");
         showChecklistButton.addActionListener(event -> cardLayout.show(cardPanel, "Checklist"));
 
-        final JButton homeButton = new JButton("Dashboard");
-        homeButton.addActionListener(event -> cardLayout.show(cardPanel, "Dashboard"));
-
         final JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-        buttonPanel.add(homeButton);
+
         buttonPanel.add(showCalendarButton);
         buttonPanel.add(showNotesButton);
         buttonPanel.add(showChecklistButton);
@@ -107,7 +118,7 @@ public class MainNoteApplication {
         return dashboardPanel;
     }
 
-    private static JPanel createCalendar() {
+    private static JPanel createCalendar() throws GeneralSecurityException, IOException {
         final CalendarView calendarView = new CalendarView();
         final CalendarOutputBoundary calendarPresenter = new CalendarPresenter(calendarView);
         final CalendarInputBoundary calendarInteractor = new CalendarInteractor(calendarPresenter, new CalendarRequest());
@@ -130,7 +141,12 @@ public class MainNoteApplication {
         final AiInputBoundary aiInteractor = new AiInteractor(aiPresenter, aiRequest);
         final AiController aiController = new AiController(aiInteractor);
         notesView.setAiController(aiController);
-      
+
+        final TranslationOutputBoundary translationPresenter = new TranslationPresenter(notesView);
+        final TranslationInputBoundary translationInteractor = new TranslationInteractor(translationPresenter);
+        final TranslationController translationController = new TranslationController(translationInteractor);
+        notesView.setTranslationController(translationController);
+
         return notesView;
     }
 

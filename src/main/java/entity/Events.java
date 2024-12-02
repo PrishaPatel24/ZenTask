@@ -1,16 +1,18 @@
 package entity;
 
+import com.google.api.services.calendar.model.EventDateTime;
+
 /**
  * The representation of a calendar event for our program.
  */
-public class Event {
+public class Events {
 
     private String name;
-    private String datetime;
+    private EventDateTime datetime;
     private String location;
     private String notes;
 
-    public Event(String name, String datetime, String location, String notes) {
+    public Events(String name, EventDateTime datetime, String location, String notes) {
         this.name = name;
         this.datetime = datetime;
         this.location = location;
@@ -22,7 +24,7 @@ public class Event {
     }
 
     public String getEventDatetime() {
-        return datetime;
+        return datetime.getDateTime().toString();
     }
 
     public String getEventLocation() {
@@ -37,7 +39,7 @@ public class Event {
         this.name = eventName;
     }
 
-    public void setEventDatetime(String eventDatetime) {
+    public void setEventDatetime(EventDateTime eventDatetime) {
         this.datetime = eventDatetime;
     }
 

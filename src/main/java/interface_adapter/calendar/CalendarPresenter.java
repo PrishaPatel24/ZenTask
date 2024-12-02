@@ -1,6 +1,6 @@
 package interface_adapter.calendar;
 
-import entity.Event;
+import entity.Events;
 import use_cases.calendar.CalendarOutputBoundary;
 import view.CalendarView;
 
@@ -16,7 +16,7 @@ public class CalendarPresenter implements CalendarOutputBoundary {
         this.calendarView = calendarView;
     }
 
-    public void prepareSuccessView(List<Event> events) {
+    public void prepareSuccessView(List<Events> events) {
         calendarView.displayEvents(events);
     }
 }

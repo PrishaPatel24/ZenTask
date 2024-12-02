@@ -40,12 +40,17 @@ So, upon running the program, the user first sees "Welcome to your Dashboard"
 ### Calendar
 The user can easily migrate to the Calendar tab by clicking on it. 
 __// TODO: add a screenshot__ 
+
 Now, the user is on the Calendar tab. They are prompter to __Login to Google Calendar here__. 
 __// TODO: add a screenshot__ 
-This displays the events the user has logged in on their Google calendar.
-The user then has the option to add event to their already existing calendar that was retrieved by logging into their Google account.
 
-[//]: # (&#40;The user has the option of creating a new calendar, without having to log into their Google account?&#41;)
+This displays the upcoming events the user has added in on their Google calendar.
+The details displayed are the event summary, location, start time, and description.
+
+__Note regarding Calendar Usage:__ Since we are unable to release our private project credentials, you should add your
+own service account credentials in a json file somewhere in the project and add the path to the file in the CalendarRequest section.
+Change the SERVICE_ACCOUNT_KEY_FILE attribute to the path and the calender should be properly
+integrated to use your new own Google project credentials.
 
 ### Notes
 The user can also go to the Notes tab by clicking the menu on the left of their view. 
@@ -61,7 +66,7 @@ Also, the user can prompt AI to complete the note based on what the user has wri
 The user can move to the Checklist tab by clicking the menu on the left of their view. 
 __// TODO: add a screenshot__ 
 Now, the user is on the Checklist tab. 
-On the user's view, the user will sea add task. 
+On the user's view, the user will see add task. 
 __// TODO: add a screenshot__ 
 This will allow the user to make a new checklist or add new tasks to an already existing checklist.
 
@@ -69,7 +74,7 @@ This will allow the user to make a new checklist or add new tasks to an already 
 ## Installation Instructions
 __Note:__ the program can be run on any operating systems.
 As the user, you should ensure that their IDE is working and already setup. If you need any help setting up, 
-[visit here](https://www.jetbrains.com/help/idea/getting-started.html).
+[visit here](https://www.jetbrains.com/help/idea/getting-started.html). The program can be run on any OS.
 To run the program, there are two options:
 1. __Through the IDE:__
    1. First, you have to clone the repo, by using [this URL](https://github.com/PrishaPatel24/ZenTask.git).  
