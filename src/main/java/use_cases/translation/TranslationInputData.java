@@ -19,4 +19,5 @@ public class TranslationInputData {
     public String getSelectedLanguage() {
         return selectedLanguage;
     }
+
 }

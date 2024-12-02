@@ -23,9 +23,9 @@ import javax.swing.JTextArea;
 import org.jetbrains.annotations.NotNull;
 
 import interface_adapter.ai.AiController;
-import interface_adapter.note.NoteController;
-import interface_adapter.note.NoteState;
-import interface_adapter.note.NoteViewModel;
+import interface_adapter.savenote.SaveNoteController;
+import interface_adapter.savenote.NoteState;
+import interface_adapter.savenote.NoteViewModel;
 import interface_adapter.translation.TranslationController;
 
 /**
@@ -37,7 +37,7 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
     private final NoteViewModel noteViewModel;
     private TranslationController translationController;
     private AiController aiController;
-    private NoteController noteController;
+    private SaveNoteController saveNoteController;
 
     private JLabel noteName;
     private JTextArea noteInputField;
@@ -96,7 +96,7 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
         if (actionEvent.getSource().equals(saveNoteButton)) {
             final String newNoteName = JOptionPane.showInputDialog("Enter new note name");
             noteName.setText(newNoteName);
-            noteController.execute(noteName.getText(), noteInputField.getText());
+            saveNoteController.execute(noteName.getText(), noteInputField.getText());
             if (newNoteName != null) {
                 final JOptionPane optionPane = new JOptionPane();
                 optionPane.showMessageDialog(null, "Note saved successfully");
@@ -132,14 +132,14 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
 
     private void clearText(ActionEvent evt) {
         if (evt.getSource().equals(clearButton)) {
-            noteController.execute(noteInputField.getText(), noteName.getText());
+            saveNoteController.execute(noteInputField.getText(), noteName.getText());
         }
 
     }
 
     private void deleteNote(ActionEvent evt) {
         if (evt.getSource().equals(deleteButton)) {
-            noteController.execute(noteInputField.getText(), noteName.getText());
+            saveNoteController.execute(noteInputField.getText(), noteName.getText());
             noteName.setText("New Note");
         }
 
@@ -246,8 +246,8 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
         noteName.setText(state.getTitle());
     }
 
-    public void setNoteController(NoteController controller) {
-        this.noteController = controller;
+    public void setNoteController(SaveNoteController controller) {
+        this.saveNoteController = controller;
     }
 
     /**

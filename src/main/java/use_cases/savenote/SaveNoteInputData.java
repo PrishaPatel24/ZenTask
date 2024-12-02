@@ -1,22 +1,23 @@
-package use_cases.note;
+package use_cases.savenote;
 
 /**
  * The input data for the Notes Use Case.
  */
-public class NoteInputData {
+public class SaveNoteInputData {
     private final String title;
     private final String content;
 
-    public NoteInputData(String title, String content) {
+    public SaveNoteInputData(String title, String content) {
         this.title = title;
         this.content = content;
+    }
+
+    public String getContent() {
+        return content;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public String getContent() {
-        return content;
-    }
 }

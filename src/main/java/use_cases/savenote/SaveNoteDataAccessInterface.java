@@ -1,4 +1,4 @@
-package use_cases.note;
+package use_cases.savenote;
 
 import entity.Note;
 
@@ -8,7 +8,7 @@ import java.util.List;
  * Interface for the NoteDAO. It consists of methods for
  * both loading and saving a note.
  */
-public interface NoteDataAccessInterface {
+public interface SaveNoteDataAccessInterface {
 
     /**
      * Saves a note.

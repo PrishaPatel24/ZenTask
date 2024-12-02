@@ -1,4 +1,4 @@
-package use_cases.note;
+package use_cases.savenote;
 
 import org.junit.Test;
 import use_cases.translation.TranslationInputData;

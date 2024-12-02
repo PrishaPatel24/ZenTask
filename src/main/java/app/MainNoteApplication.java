@@ -15,7 +15,7 @@ import javax.swing.WindowConstants;
 
 import org.jetbrains.annotations.NotNull;
 
-import data_access.InMemoryNoteDataAccessObject;
+import data_access.InMemorySaveNoteDataAccessObject;
 import interface_adapter.add_task.AddTaskController;
 import interface_adapter.add_task.AddTaskPresenter;
 import interface_adapter.add_task.TaskViewModel;
@@ -23,9 +23,9 @@ import interface_adapter.ai.AiController;
 import interface_adapter.ai.AiPresenter;
 import interface_adapter.calendar.CalendarController;
 import interface_adapter.calendar.CalendarPresenter;
-import interface_adapter.note.NoteController;
-import interface_adapter.note.NotePresenter;
-import interface_adapter.note.NoteViewModel;
+import interface_adapter.savenote.SaveNoteController;
+import interface_adapter.savenote.SaveNotePresenter;
+import interface_adapter.savenote.NoteViewModel;
 import interface_adapter.translation.TranslationController;
 import interface_adapter.translation.TranslationPresenter;
 import use_cases.add_task.AddTaskInputBoundary;
@@ -39,9 +39,9 @@ import use_cases.calendar.CalendarInputBoundary;
 import use_cases.calendar.CalendarInteractor;
 import use_cases.calendar.CalendarOutputBoundary;
 import use_cases.calendar.CalendarRequest;
-import use_cases.note.NoteInputBoundary;
-import use_cases.note.NoteInteractor;
-import use_cases.note.NoteOutputBoundary;
+import use_cases.savenote.SaveNoteInputBoundary;
+import use_cases.savenote.SaveNoteInteractor;
+import use_cases.savenote.SaveNoteOutputBoundary;
 import use_cases.translation.TranslationInputBoundary;
 import use_cases.translation.TranslationInteractor;
 import use_cases.translation.TranslationOutputBoundary;
@@ -136,10 +136,10 @@ public class MainNoteApplication {
 
     private static JPanel createNotes() {
         final NoteViewModel noteViewModel = new NoteViewModel();
-        final NoteOutputBoundary notePresenter = new NotePresenter(noteViewModel);
-        final InMemoryNoteDataAccessObject inMemoryNoteDAO = new InMemoryNoteDataAccessObject();
-        final NoteInputBoundary noteInteractor = new NoteInteractor(notePresenter, inMemoryNoteDAO);
-        final NoteController controller = new NoteController(noteInteractor);
+        final SaveNoteOutputBoundary notePresenter = new SaveNotePresenter(noteViewModel);
+        final InMemorySaveNoteDataAccessObject inMemoryNoteDAO = new InMemorySaveNoteDataAccessObject();
+        final SaveNoteInputBoundary noteInteractor = new SaveNoteInteractor(notePresenter, inMemoryNoteDAO);
+        final SaveNoteController controller = new SaveNoteController(noteInteractor);
         final NotesView notesView = new NotesView(noteViewModel);
         notesView.setNoteController(controller);
       

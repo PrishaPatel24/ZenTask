@@ -1,15 +1,12 @@
 package use_cases.calendar;
 
-import entity.Events;
-import com.google.api.services.calendar.model.Event;
-
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import entity.Event;
+import com.google.api.services.calendar.model.Event;
+import entity.Events;
 
 /**
  * TODO: Include Javadoc

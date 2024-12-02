@@ -1,15 +1,15 @@
-package use_cases.note;
+package use_cases.savenote;
 
 /**
  * The Output data for the Notes Use Case.
  */
-public class NoteOutputData {
+public class SaveNoteOutputData {
 
     private final String title;
     private final String content;
     private final boolean useCaseFailed;
 
-    public NoteOutputData(String title, String content, boolean useCaseFailed) {
+    public SaveNoteOutputData(String title, String content, boolean useCaseFailed) {
         this.title = title;
         this.content = content;
         this.useCaseFailed = useCaseFailed;
