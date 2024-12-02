@@ -34,12 +34,12 @@ To keep track of things, you can tick off tasks as you go about completing them.
 ## Features of the Software
 There are three major components of this software: Calendar, Checklist and Notes.
 So, upon running the program, the user first sees "Welcome to your Dashboard" 
-![Click here](images/dashboard.png)
+![Click here](images/dashboard.png) 
 On the left of the Dashboard, the user sees three tabs: Calendar, Notes and Checklist.
 
 ### Calendar
 The user can easily migrate to the Calendar tab by clicking on it. 
-![Click here](images/navigate_calendar.png)
+![Click here](images/navigate_calendar.png) 
 Now, the user is on the Calendar tab. They are prompter to log in their __Google Account__. 
 ![Click here](images/view_calendar.png)
 This displays the upcoming events the user has added in on their Google calendar.
@@ -54,8 +54,10 @@ integrated to use your new own Google project credentials.
 The user can also go to the Notes tab by clicking the menu on the left of their view. 
 ![Click here](images/navigate_notes.png)
 Now, the user is on the Notes tab.
-On the left side of the user's view, they can create a new note by simply typing into the provided area. ![Click here](images/create-note.png)
-The user also has the option of uploading text from an already existing file.![Click here](images/uploadnote.png)  
+On the left side of the user's view, they can create a new note by simply typing into the provided area. 
+![Click here](images/create-note.png)
+The user also has the option of uploading text from an already existing file. 
+![Click here](images/uploadnote.png)  
 As additional functionalities, the user can translate existing text on their notes to either French, Spanish, Russian.
 Also, the user can prompt AI to complete the note based on what the user has written. 
 ![Click here](images/translateandAI.png)
@@ -102,17 +104,21 @@ Please, take your time to carefully fill out the form and should expect a follow
 All contributions to the project are welcome.
 To contribute to the project, you have to follow these steps:
 1. Make a fork of the [project](https://github.com/PrishaPatel24/ZenTask) on GitHub by right-clicking _Fork_ found on the top right of the GitHub page.
-Then, create a new fork.  ![View](images/create-fork.png)
-2. Then, clone the repo and work from your IDE.
-3. Do not forget to add a branch protection rule, especially if you are working with other people. Ensure everyone has their branch. 
+Then, create a new fork.
+![View](images/create-fork.png)
+3. Then, clone the repo and work from your IDE.
+4. Do not forget to add a branch protection rule, especially if you are working with other people. Ensure everyone has their branch. 
 Then, they will need to make a pull request on your own fork of the repository ([do this through the IDE](https://www.jetbrains.com/help/idea/work-with-github-pull-requests.html#create-pull-request)), 
 explaining in detail what changes they have made, and perform a [code review](https://swimm.io/learn/code-reviews/ultimate-10-step-code-review-checklist).
-4. To add your contributions to this project, you have to make a merge request. 
-5. To make a merge request, first navigate to the back to [this project's repository](https://github.com/PrishaPatel24/ZenTask).
-6. Then, on top of the GitHub page, click on _Pull Requests_. ![View](images/pull-request.png)
-7. Click on the green button on the left of the GitHub page to create a _New pull request_.  ![View](images/new-pull-request.png)
-8. Then, set the base repository to [this project's repository](https://github.com/PrishaPatel24/ZenTask) and set base to _main_.
-9. Similarly, set the head repository to be your fork of the repository and set base to main.
-10. Then, click on the green button, _Create pull request_.  ![View](images/create-pull-request.png)
-11. In the pull request, add a title that properly summarizes the content of the "contribution". 
+5. To add your contributions to this project, you have to make a merge request. 
+6. To make a merge request, first navigate to the back to [this project's repository](https://github.com/PrishaPatel24/ZenTask).
+7. Then, on top of the GitHub page, click on _Pull Requests_. 
+    ![View](images/pull-request.png)
+9. Click on the green button on the left of the GitHub page to create a _New pull request_. 
+    ![View](images/new-pull-request.png)
+11. Then, set the base repository to [this project's repository](https://github.com/PrishaPatel24/ZenTask) and set base to _main_.
+12. Similarly, set the head repository to be your fork of the repository and set base to main.
+13. Then, click on the green button, _Create pull request_. 
+    ![View](images/create-pull-request.png)
+14. In the pull request, add a title that properly summarizes the content of the "contribution". 
 Also, add a proper description that contain what changes you made or things you added, what files your worked on and why this contribution is meaningful and beneficial. 
