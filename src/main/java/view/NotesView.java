@@ -10,9 +10,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-import javax.swing.JComboBox;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -23,11 +23,10 @@ import javax.swing.JTextArea;
 import org.jetbrains.annotations.NotNull;
 
 import interface_adapter.ai.AiController;
-import interface_adapter.translation.TranslationController;
-
 import interface_adapter.note.NoteController;
 import interface_adapter.note.NoteState;
 import interface_adapter.note.NoteViewModel;
+import interface_adapter.translation.TranslationController;
 
 /**
  * This class sets up the view of the Notes Use Case.
@@ -36,6 +35,7 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
     static final int DIVIDER = 400;
 
     private final NoteViewModel noteViewModel;
+    private TranslationController translationController;
     private AiController aiController;
     private NoteController noteController;
 
@@ -191,7 +191,7 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
         );
         tools.add(aiButton);
 
-          // Dropdown menu
+        // Dropdown menu
         final String[] languages = {"Russian", "French", "Spanish", "Arabic"};
         final JComboBox<String> languageDropdown = new JComboBox<>(languages);
         languageDropdown.setVisible(false);
@@ -206,7 +206,7 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
                         }
                         else {
                             final String selectedLanguage = (String) languageDropdown.getSelectedItem();
-                            final String textInput = notesTextArea.getText();
+                            final String textInput = outputArea.getText();
                             translationController.translateNote(textInput, selectedLanguage);
                             languageDropdown.setVisible(false);
                         }
