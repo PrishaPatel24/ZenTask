@@ -1,14 +1,19 @@
 package view;
 
-import interface_adapter.add_task.AddTaskController;
-import interface_adapter.add_task.TaskState;
-import interface_adapter.add_task.TaskViewModel;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.FlowLayout;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
+import interface_adapter.add_task.AddTaskController;
+import interface_adapter.add_task.TaskState;
+import interface_adapter.add_task.TaskViewModel;
 
 /**
  * The View for when the user is viewing a checklist in the program.

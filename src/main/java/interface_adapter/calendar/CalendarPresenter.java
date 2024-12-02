@@ -1,22 +1,28 @@
 package interface_adapter.calendar;
 
+import java.util.List;
+
 import entity.Events;
 import use_cases.calendar.CalendarOutputBoundary;
 import view.CalendarView;
-
-import java.util.List;
 
 /**
  * The presenter for the calendar use case.
  */
 public class CalendarPresenter implements CalendarOutputBoundary {
-    private CalendarView calendarView;
+    private final CalendarView calendarView;
 
     public CalendarPresenter(CalendarView calendarView) {
         this.calendarView = calendarView;
     }
 
+    @Override
     public void prepareSuccessView(List<Events> events) {
         calendarView.displayEvents(events);
+    }
+
+    @Override
+    public void prepareFailureView(String message) {
+        calendarView.displayError(message);
     }
 }

@@ -1,10 +1,6 @@
-package use_cases.savenote;
+package use_cases.translation;
 
 import org.junit.Test;
-import use_cases.translation.TranslationInputData;
-import use_cases.translation.TranslationInteractor;
-import use_cases.translation.TranslationOutputBoundary;
-import use_cases.translation.TranslationOutputData;
 
 import static org.junit.Assert.assertEquals;
 

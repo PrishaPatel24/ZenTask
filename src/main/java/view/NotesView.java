@@ -23,9 +23,9 @@ import javax.swing.JTextArea;
 import org.jetbrains.annotations.NotNull;
 
 import interface_adapter.ai.AiController;
-import interface_adapter.savenote.SaveNoteController;
 import interface_adapter.savenote.NoteState;
 import interface_adapter.savenote.NoteViewModel;
+import interface_adapter.savenote.SaveNoteController;
 import interface_adapter.translation.TranslationController;
 
 /**
@@ -199,6 +199,8 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
   
         final JButton languageButton = new JButton("Translate");
         languageButton.addActionListener(
+                // TODO: see if you can refactor this or see if you can make it 10 lines (currently 12).
+                //  It is a checkstyle error.
                 evt -> {
                     if (evt.getSource().equals(languageButton)) {
                         if (!languageDropdown.isVisible()) {

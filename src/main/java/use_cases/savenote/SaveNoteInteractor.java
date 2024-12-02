@@ -12,7 +12,8 @@ public class SaveNoteInteractor implements SaveNoteInputBoundary {
     private final SaveNoteOutputBoundary notePresenter;
     private final SaveNoteDataAccessInterface inMemoryNoteDataAccessObject;
 
-    public SaveNoteInteractor(SaveNoteOutputBoundary saveNoteOutputBoundary, SaveNoteDataAccessInterface inMemoryNoteDAO) {
+    public SaveNoteInteractor(SaveNoteOutputBoundary saveNoteOutputBoundary,
+                              SaveNoteDataAccessInterface inMemoryNoteDAO) {
         this.notePresenter = saveNoteOutputBoundary;
         this.inMemoryNoteDataAccessObject = inMemoryNoteDAO;
     }
@@ -26,7 +27,8 @@ public class SaveNoteInteractor implements SaveNoteInputBoundary {
             if (!(inMemoryNoteDataAccessObject.getNotesSaved()).contains(saveNoteInputData.getTitle())) {
                 inMemoryNoteDataAccessObject.saveNote(saveNoteInputData.getTitle(), saveNoteInputData.getContent());
                 final Note note = inMemoryNoteDataAccessObject.getNote(saveNoteInputData.getTitle());
-                final SaveNoteOutputData saveNoteOutputData = new SaveNoteOutputData(note.getTitle(), note.getContent(), false);
+                final SaveNoteOutputData saveNoteOutputData =
+                        new SaveNoteOutputData(note.getTitle(), note.getContent(), false);
                 notePresenter.prepareSuccessView(saveNoteOutputData);
             }
             else {
