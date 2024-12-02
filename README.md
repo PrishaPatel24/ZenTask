@@ -84,7 +84,8 @@ To run the program, there are two options:
    3. Then, open the terminal there. 
    4. In you terminal, compile the program by using `javac MainNoteApplication.java`
    5. Then, run the application, using `java MainNoteApplication`
-   6. You should see your Dashboard. ![View](images/dashboard.png)
+   6. You should see your Dashboard. 
+    ![View](images/dashboard.png)
 
 ## Usage Guide
 To use the software, the user should navigate the tabs using the menu found on the left of the view. 
@@ -101,7 +102,7 @@ Please, take your time to carefully fill out the form and should expect a follow
 All contributions to the project are welcome.
 To contribute to the project, you have to follow these steps:
 1. Make a fork of the [project](https://github.com/PrishaPatel24/ZenTask) on GitHub by right-clicking _Fork_ found on the top right of the GitHub page.
-Then, create a new fork. ![View](images/create-fork.png)
+Then, create a new fork.  ![View](images/create-fork.png)
 2. Then, clone the repo and work from your IDE.
 3. Do not forget to add a branch protection rule, especially if you are working with other people. Ensure everyone has their branch. 
 Then, they will need to make a pull request on your own fork of the repository ([do this through the IDE](https://www.jetbrains.com/help/idea/work-with-github-pull-requests.html#create-pull-request)), 
@@ -109,9 +110,9 @@ explaining in detail what changes they have made, and perform a [code review](ht
 4. To add your contributions to this project, you have to make a merge request. 
 5. To make a merge request, first navigate to the back to [this project's repository](https://github.com/PrishaPatel24/ZenTask).
 6. Then, on top of the GitHub page, click on _Pull Requests_. ![View](images/pull-request.png)
-7. Click on the green button on the left of the GitHub page to create a _New pull request_. ![View](images/new-pull-request.png)
+7. Click on the green button on the left of the GitHub page to create a _New pull request_.  ![View](images/new-pull-request.png)
 8. Then, set the base repository to [this project's repository](https://github.com/PrishaPatel24/ZenTask) and set base to _main_.
 9. Similarly, set the head repository to be your fork of the repository and set base to main.
-10. Then, click on the green button, _Create pull request_. ![View](images/create-pull-request.png)
+10. Then, click on the green button, _Create pull request_.  ![View](images/create-pull-request.png)
 11. In the pull request, add a title that properly summarizes the content of the "contribution". 
 Also, add a proper description that contain what changes you made or things you added, what files your worked on and why this contribution is meaningful and beneficial. 
