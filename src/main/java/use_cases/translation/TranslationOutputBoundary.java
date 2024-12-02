@@ -1,11 +1,11 @@
-package use_cases.note;
+package use_cases.translation;
 
 /**
  * OutputBoundary for translation use case.
  */
 public interface TranslationOutputBoundary {
     /**
-     * presents the translated text.
+     * Presents the translated text.
      * @param outputData translated content
      */
     void updateTranslation(TranslationOutputData outputData);

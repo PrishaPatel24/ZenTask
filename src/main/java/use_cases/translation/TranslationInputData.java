@@ -1,4 +1,4 @@
-package use_cases.note;
+package use_cases.translation;
 
 /**
  * The Note Input Data contains the text to translate and the selected language to translate to.

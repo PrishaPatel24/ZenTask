@@ -1,4 +1,4 @@
-package use_cases.note;
+package use_cases.translation;
 
 import space.dynomake.libretranslate.Language;
 import space.dynomake.libretranslate.Translator;

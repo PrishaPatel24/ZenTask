@@ -1,50 +1,50 @@
 package app;
 
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
+
+import org.jetbrains.annotations.NotNull;
+
 import data_access.InMemoryNoteDataAccessObject;
 import interface_adapter.add_task.AddTaskController;
 import interface_adapter.add_task.AddTaskPresenter;
 import interface_adapter.add_task.TaskViewModel;
-
+import interface_adapter.ai.AiController;
+import interface_adapter.ai.AiPresenter;
+import interface_adapter.calendar.CalendarController;
+import interface_adapter.calendar.CalendarPresenter;
 import interface_adapter.note.NoteController;
 import interface_adapter.note.NotePresenter;
 import interface_adapter.note.NoteViewModel;
-
-import interface_adapter.ai.AiController;
-import interface_adapter.ai.AiPresenter;
-
-import interface_adapter.calendar.CalendarController;
-import interface_adapter.calendar.CalendarPresenter;
 import interface_adapter.translation.TranslationController;
 import interface_adapter.translation.TranslationPresenter;
-import org.jetbrains.annotations.NotNull;
-
-import javax.swing.*;
-import java.awt.*;
-import java.io.IOException;
-import java.security.GeneralSecurityException;
-
 import use_cases.add_task.AddTaskInputBoundary;
 import use_cases.add_task.AddTaskInteractor;
 import use_cases.add_task.AddTaskOutputBoundary;
-
-import use_cases.note.NoteInputBoundary;
-import use_cases.note.NoteInteractor;
-import use_cases.note.NoteOutputBoundary;
-
 import use_cases.ai.AiInputBoundary;
 import use_cases.ai.AiInteractor;
 import use_cases.ai.AiOutputBoundary;
 import use_cases.ai.AiRequest;
-
 import use_cases.calendar.CalendarInputBoundary;
 import use_cases.calendar.CalendarInteractor;
 import use_cases.calendar.CalendarOutputBoundary;
 import use_cases.calendar.CalendarRequest;
-
-import use_cases.note.TranslationInputBoundary;
-import use_cases.note.TranslationInteractor;
-import use_cases.note.TranslationOutputBoundary;
-
+import use_cases.note.NoteInputBoundary;
+import use_cases.note.NoteInteractor;
+import use_cases.note.NoteOutputBoundary;
+import use_cases.translation.TranslationInputBoundary;
+import use_cases.translation.TranslationInteractor;
+import use_cases.translation.TranslationOutputBoundary;
 import view.CalendarView;
 import view.ChecklistView;
 import view.DashboardView;
@@ -57,6 +57,11 @@ public class MainNoteApplication {
     static final int WIDTH = 1100;
     static final int HEIGHT = 500;
 
+    /**
+     * This runs the program, sets up necessary things for the use cases to run the program
+     * and allows the user to see the UI.
+     * @param args arguments to run MainNoteApplication.main().
+     */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             final CardLayout cardLayout = new CardLayout();
@@ -113,6 +118,7 @@ public class MainNoteApplication {
     }
 
     private static JPanel createDashboard() {
+        // TODO: delete if not needed.
         final JPanel dashboardPanel = new JPanel();
         dashboardPanel.add(new JLabel("Welcome to your Dashboard"));
         return dashboardPanel;
@@ -121,7 +127,8 @@ public class MainNoteApplication {
     private static JPanel createCalendar() throws GeneralSecurityException, IOException {
         final CalendarView calendarView = new CalendarView();
         final CalendarOutputBoundary calendarPresenter = new CalendarPresenter(calendarView);
-        final CalendarInputBoundary calendarInteractor = new CalendarInteractor(calendarPresenter, new CalendarRequest());
+        final CalendarInputBoundary calendarInteractor = new CalendarInteractor(calendarPresenter,
+                new CalendarRequest());
         final CalendarController calendarController = new CalendarController(calendarInteractor);
         calendarView.setCalendarController(calendarController);
         return calendarView;

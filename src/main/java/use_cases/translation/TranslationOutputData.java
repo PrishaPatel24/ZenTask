@@ -1,4 +1,4 @@
-package use_cases.note;
+package use_cases.translation;
 
 /**
  * The Note Output Data contains the translated text.
