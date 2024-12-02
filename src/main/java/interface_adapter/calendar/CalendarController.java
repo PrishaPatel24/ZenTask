@@ -1,7 +1,9 @@
 package interface_adapter.calendar;
 
-import entity.Event;
 import use_cases.calendar.CalendarInputBoundary;
+
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 /**
  * The controller for the calendar use case.
@@ -15,9 +17,11 @@ public class CalendarController {
 
     /**
      * Executes the calendar Use Case.
-     * @param event the calendar event
+     * @param email the email of user.
+     * @throws GeneralSecurityException for Google account.
+     * @throws IOException for Google login.
      */
-    public void execute(Event event) {
-        calendarUseCaseInteractor.execute(event);
+    public void execute(String email) throws GeneralSecurityException, IOException {
+        calendarUseCaseInteractor.execute(email);
     }
 }

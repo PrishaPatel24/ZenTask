@@ -20,6 +20,8 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 import use_cases.add_task.AddTaskInputBoundary;
 import use_cases.add_task.AddTaskInteractor;
@@ -62,7 +64,13 @@ public class MainNoteApplication {
 
             final JPanel dashboardPanel = new DashboardView();
             final JPanel notesPanel = createNotes();
-            final JPanel calendarPanel = createCalendar();
+            final JPanel calendarPanel;
+            try {
+                calendarPanel = createCalendar();
+            }
+            catch (GeneralSecurityException | IOException exception) {
+                throw new RuntimeException(exception);
+            }
             final JPanel checklistPanel = createChecklist();
 
             cardPanel.add(dashboardPanel, "Dashboard");
@@ -95,12 +103,9 @@ public class MainNoteApplication {
         final JButton showChecklistButton = new JButton("Checklist");
         showChecklistButton.addActionListener(event -> cardLayout.show(cardPanel, "Checklist"));
 
-        final JButton homeButton = new JButton("Dashboard");
-        homeButton.addActionListener(event -> cardLayout.show(cardPanel, "Dashboard"));
-
         final JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-        buttonPanel.add(homeButton);
+
         buttonPanel.add(showCalendarButton);
         buttonPanel.add(showNotesButton);
         buttonPanel.add(showChecklistButton);
@@ -113,7 +118,7 @@ public class MainNoteApplication {
         return dashboardPanel;
     }
 
-    private static JPanel createCalendar() {
+    private static JPanel createCalendar() throws GeneralSecurityException, IOException {
         final CalendarView calendarView = new CalendarView();
         final CalendarOutputBoundary calendarPresenter = new CalendarPresenter(calendarView);
         final CalendarInputBoundary calendarInteractor = new CalendarInteractor(calendarPresenter, new CalendarRequest());

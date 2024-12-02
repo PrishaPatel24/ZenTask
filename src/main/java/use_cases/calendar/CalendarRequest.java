@@ -41,7 +41,7 @@ public class CalendarRequest {
     /**
      * Directory to store authorization tokens for this application.
      */
-    private static final String SERVICE_ACCOUNT_KEY_FILE = "fair-ceiling-402704-460d2d4af835.json";
+    private static final String SERVICE_ACCOUNT_KEY_FILE = "YOUR_KEY_HERE";
 
     /**
      * Creates credentials.
@@ -56,12 +56,7 @@ public class CalendarRequest {
 
         // Build the service account credentials
         final GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccountStream)
-                .createScoped(List.of("https://www.googleapis.com/auth/calendar"))
-                .createDelegated("jennazhang.jz@gmail.com");
-
-        // REPLACE USER WITH AN EMAIL INPUT FROM LIKE A TEXT FIELD OR STH FROMM A POP UOP @ PRISHA
-        // YOU DID THIS BEFORE W UR ADD TASK STUFF
-        // MINE IS THERE AS A PLACEHOLDER FOR TESTING
+                .createScoped(List.of("https://www.googleapis.com/auth/calendar"));
 
         // Construct the Calendar service object
         return new Calendar.Builder(GoogleNetHttpTransport.newTrustedTransport(), JSON_FACTORY,
@@ -71,16 +66,17 @@ public class CalendarRequest {
     /**
      * Retrieves calendar events, first 10 of them.
      *
+     * @param email The email address of Google account.
      * @return List of events.
      * @throws GeneralSecurityException exception.
      * @throws IOException              exception.
      */
-    public List<Event> getCalendarEvents() throws GeneralSecurityException, IOException {
+    public List<Event> getCalendarEvents(String email) throws GeneralSecurityException, IOException {
         final Calendar service = getCalendarService();
 
         // List the next 10 events from the primary calendar.
         final DateTime now = new DateTime(System.currentTimeMillis());
-        final Events events = service.events().list("calendar-id").setMaxResults(10).setTimeMin(now)
+        final Events events = service.events().list(email).setMaxResults(10).setTimeMin(now)
                 .setOrderBy("startTime").setSingleEvents(true).execute();
         final List<Event> items = events.getItems();
         if (items.isEmpty()) {
