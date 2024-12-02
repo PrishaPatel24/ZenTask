@@ -39,6 +39,7 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
     private final NoteViewModel noteViewModel;
     private AiController aiController;
     private NoteController noteController;
+    private TranslationController translationController;
 
     private JLabel noteName;
     private JTextArea noteInputField;
