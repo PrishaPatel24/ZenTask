@@ -18,7 +18,6 @@ public class AiInteractor implements AiInputBoundary {
 
     /**
      * Auto-complete the current notes written by the user with AI.
-     *
      * @param currNote The call to the AI to complete the current note.
      */
     public void generateResponse(String currNote) {
