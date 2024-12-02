@@ -5,9 +5,15 @@ import com.google.api.services.calendar.model.Event;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import entity.Event;
+
+/**
+ * TODO: Include Javadoc
+ */
 public class CalendarInteractor implements CalendarInputBoundary {
     private final CalendarOutputBoundary calendarPresenter;
     private final CalendarRequest calendarRequest;
