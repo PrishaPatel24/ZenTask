@@ -204,7 +204,7 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
                         languageDropdown.setVisible(true);
                     }
                     else if (evt.getSource().equals(languageButton) & languageDropdown.isVisible()) {
-                        translationController.translateNote(outputArea.getText(), (String)
+                        translationController.translateNote(noteInputField.getText(), (String)
                                 languageDropdown.getSelectedItem());
                         languageDropdown.setVisible(false);
                     }
