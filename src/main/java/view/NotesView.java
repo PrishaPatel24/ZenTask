@@ -48,7 +48,6 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
     private JButton saveNoteButton;
     private JButton uploadButton;
     private JButton clearButton;
-    private JButton deleteButton;
 
     private JPanel notePanel;
     private JPanel editPanel;
@@ -82,7 +81,6 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
         saveNoteButton = new JButton("Save Note");
         uploadButton = new JButton("Upload");
         clearButton = new JButton("Clear");
-        deleteButton = new JButton("Delete");
 
     }
 
@@ -90,8 +88,6 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
         saveNoteButton.addActionListener(this::saveNote);
         uploadButton.addActionListener(this::uploadText);
         clearButton.addActionListener(this::clearText);
-        deleteButton.addActionListener(this::deleteNote);
-
     }
 
     private void saveNote(ActionEvent actionEvent) {
@@ -102,8 +98,7 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
             notes.add(newNoteName);
             saveNoteController.execute(noteName.getText(), noteInputField.getText());
             if (!notes.contains(noteName.getText())) {
-                final JOptionPane optionPane = new JOptionPane();
-                optionPane.showMessageDialog(null, "Note saved successfully");
+                JOptionPane.showMessageDialog(null, "Note saved successfully");
             }
         }
 
@@ -141,14 +136,6 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
 
     }
 
-    private void deleteNote(ActionEvent evt) {
-        if (evt.getSource().equals(deleteButton)) {
-            noteName.setText("New Note");
-            noteInputField.setText("");
-        }
-
-    }
-
     private void buildUi() {
         notePanel.setLayout(new BoxLayout(notePanel, BoxLayout.Y_AXIS));
 
@@ -161,7 +148,6 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
 
         editPanel.add(uploadButton);
         editPanel.add(clearButton);
-        editPanel.add(deleteButton);
         notePanel.add(editPanel);
 
         savePanel.add(saveNoteButton);
@@ -188,8 +174,6 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
                 evt -> {
                     if (evt.getSource().equals(aiButton)) {
                         aiController.generateResponse(noteInputField.getText());
-                        // Jenna, you may need to call some method since you cannot create an instance of Note here.
-
                     }
                 }
         );
@@ -204,10 +188,10 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
         final JButton languageButton = new JButton("Translate");
         languageButton.addActionListener(
                 evt -> {
-                    if (evt.getSource().equals(languageButton) & !languageDropdown.isVisible()) {
+                    if (evt.getSource().equals(languageButton) && !languageDropdown.isVisible()) {
                         languageDropdown.setVisible(true);
                     }
-                    else if (evt.getSource().equals(languageButton) & languageDropdown.isVisible()) {
+                    else if (evt.getSource().equals(languageButton) && languageDropdown.isVisible()) {
                         translationController.translateNote(noteInputField.getText(), (String)
                                 languageDropdown.getSelectedItem());
                         languageDropdown.setVisible(false);
