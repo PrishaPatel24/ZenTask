@@ -9,6 +9,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -93,11 +95,13 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
     }
 
     private void saveNote(ActionEvent actionEvent) {
+        final List<String> notes = new ArrayList<>();
         if (actionEvent.getSource().equals(saveNoteButton)) {
             final String newNoteName = JOptionPane.showInputDialog("Enter new note name");
             noteName.setText(newNoteName);
+            notes.add(newNoteName);
             saveNoteController.execute(noteName.getText(), noteInputField.getText());
-            if (newNoteName != null) {
+            if (!notes.contains(noteName.getText())) {
                 final JOptionPane optionPane = new JOptionPane();
                 optionPane.showMessageDialog(null, "Note saved successfully");
             }

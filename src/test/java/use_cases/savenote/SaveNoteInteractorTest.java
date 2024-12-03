@@ -19,6 +19,7 @@ public class SaveNoteInteractorTest {
             @Override
             public void prepareSuccessView(SaveNoteOutputData result) {
                 assertEquals("This is a sample note! This tests to see if the note is properly saved. ", result.getContent());
+                assertEquals("Test note", result.getTitle());
             }
 
             @Override
