@@ -1,7 +1,7 @@
 package interface_adapter.translation;
 
-import use_cases.note.TranslationOutputData;
-import use_cases.note.TranslationOutputBoundary;
+import use_cases.translation.TranslationOutputBoundary;
+import use_cases.translation.TranslationOutputData;
 import view.NotesView;
 
 /**
@@ -15,7 +15,7 @@ public class TranslationPresenter implements TranslationOutputBoundary {
     }
 
     /**
-     * updates translation.
+     * Updates translation.
      * @param outputData translated content
      */
     public void updateTranslation(TranslationOutputData outputData) {

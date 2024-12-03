@@ -6,16 +6,16 @@ import java.util.List;
 import java.util.Map;
 
 import entity.Note;
-import use_cases.note.NoteDataAccessInterface;
+import use_cases.savenote.SaveNoteDataAccessInterface;
 
 /**
  * This class implements storage of notes within a single run of the program.
  * This does not persist data between runs of the program.
  */
-public class InMemoryNoteDataAccessObject implements NoteDataAccessInterface {
+public class InMemorySaveNoteDataAccessObject implements SaveNoteDataAccessInterface {
     private final Map<String, String> notes;
 
-    public InMemoryNoteDataAccessObject() {
+    public InMemorySaveNoteDataAccessObject() {
         this.notes = new HashMap<>();
     }
 

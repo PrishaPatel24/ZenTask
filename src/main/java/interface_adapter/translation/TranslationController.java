@@ -1,7 +1,7 @@
 package interface_adapter.translation;
 
-import use_cases.note.TranslationInputData;
-import use_cases.note.TranslationInputBoundary;
+import use_cases.translation.TranslationInputBoundary;
+import use_cases.translation.TranslationInputData;
 
 /**
  * Controller for translation use case.

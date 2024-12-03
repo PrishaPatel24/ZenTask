@@ -10,9 +10,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-import javax.swing.JComboBox;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -23,11 +23,10 @@ import javax.swing.JTextArea;
 import org.jetbrains.annotations.NotNull;
 
 import interface_adapter.ai.AiController;
+import interface_adapter.savenote.NoteState;
+import interface_adapter.savenote.NoteViewModel;
+import interface_adapter.savenote.SaveNoteController;
 import interface_adapter.translation.TranslationController;
-
-import interface_adapter.note.NoteController;
-import interface_adapter.note.NoteState;
-import interface_adapter.note.NoteViewModel;
 
 /**
  * This class sets up the view of the Notes Use Case.
@@ -36,10 +35,11 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
     static final int DIVIDER = 400;
 
     private final NoteViewModel noteViewModel;
-    private AiController aiController;
-    private NoteController noteController;
     private TranslationController translationController;
-
+    private AiController aiController;
+    private SaveNoteController saveNoteController;
+    private TranslationController translationController;
+  
     private JLabel noteName;
     private JTextArea noteInputField;
     private JTextArea outputArea;
@@ -48,8 +48,6 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
     private JButton uploadButton;
     private JButton clearButton;
     private JButton deleteButton;
-
-    private JTextArea notesTextArea;
 
     private JPanel notePanel;
     private JPanel editPanel;
@@ -99,7 +97,7 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
         if (actionEvent.getSource().equals(saveNoteButton)) {
             final String newNoteName = JOptionPane.showInputDialog("Enter new note name");
             noteName.setText(newNoteName);
-            noteController.execute(noteName.getText(), noteInputField.getText());
+            saveNoteController.execute(noteName.getText(), noteInputField.getText());
             if (newNoteName != null) {
                 final JOptionPane optionPane = new JOptionPane();
                 optionPane.showMessageDialog(null, "Note saved successfully");
@@ -135,14 +133,14 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
 
     private void clearText(ActionEvent evt) {
         if (evt.getSource().equals(clearButton)) {
-            noteController.execute(noteInputField.getText(), noteName.getText());
+            saveNoteController.execute(noteInputField.getText(), noteName.getText());
         }
 
     }
 
     private void deleteNote(ActionEvent evt) {
         if (evt.getSource().equals(deleteButton)) {
-            noteController.execute(noteInputField.getText(), noteName.getText());
+            saveNoteController.execute(noteInputField.getText(), noteName.getText());
             noteName.setText("New Note");
         }
 
@@ -171,7 +169,6 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
         final JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, notePanel, functionalityPanel);
         splitPane.setDividerLocation(DIVIDER);
 
-
         this.add(splitPane);
 
     }
@@ -195,7 +192,7 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
         );
         tools.add(aiButton);
 
-          // Dropdown menu
+        // Dropdown menu
         final String[] languages = {"Russian", "French", "Spanish", "Arabic"};
         final JComboBox<String> languageDropdown = new JComboBox<>(languages);
         languageDropdown.setVisible(false);
@@ -203,6 +200,8 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
   
         final JButton languageButton = new JButton("Translate");
         languageButton.addActionListener(
+                // TODO: see if you can refactor this or see if you can make it 10 lines (currently 12).
+                //  It is a checkstyle error.
                 evt -> {
                     if (evt.getSource().equals(languageButton)) {
                         if (!languageDropdown.isVisible()) {
@@ -210,7 +209,7 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
                         }
                         else {
                             final String selectedLanguage = (String) languageDropdown.getSelectedItem();
-                            final String textInput = notesTextArea.getText();
+                            final String textInput = outputArea.getText();
                             translationController.translateNote(textInput, selectedLanguage);
                             languageDropdown.setVisible(false);
                         }
@@ -250,12 +249,12 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
         noteName.setText(state.getTitle());
     }
 
-    public void setNoteController(NoteController controller) {
-        this.noteController = controller;
+    public void setNoteController(SaveNoteController controller) {
+        this.saveNoteController = controller;
     }
 
     /**
-     * updates the translation.
+     * Updates the translation.
      * @param translatedText text that has been translated
      */
     public void updateTranslation(String translatedText) {

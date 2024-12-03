@@ -1,9 +1,9 @@
 package interface_adapter.calendar;
 
-import use_cases.calendar.CalendarInputBoundary;
-
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+
+import use_cases.calendar.CalendarInputBoundary;
 
 /**
  * The controller for the calendar use case.

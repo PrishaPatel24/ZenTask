@@ -1,17 +1,18 @@
 package view;
 
-import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+import java.util.List;
+
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import entity.Events;
 import interface_adapter.calendar.CalendarController;
-
-import java.awt.*;
-import java.io.IOException;
-import java.security.GeneralSecurityException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * The view for the calendar use case.
@@ -28,21 +29,7 @@ public class CalendarView extends JPanel {
         this.weekPanel = new JPanel();
 
         loginButton.addActionListener(
-                evt -> {
-                    if (evt.getSource().equals(loginButton)) {
-                        loginButton.setVisible(false);
-                        final String email = JOptionPane.showInputDialog(this,
-                                "Enter Email:", "Google Account", JOptionPane.PLAIN_MESSAGE);
-                        if (email != null && !email.trim().isEmpty()) {
-                            try {
-                                calendarController.execute(email);
-                            }
-                            catch (GeneralSecurityException | IOException exception) {
-                                throw new RuntimeException(exception);
-                            }
-                        }
-                    }
-                }
+                this::loginAction
         );
         this.add(this.promptLabel);
         this.add(this.loginButton);
@@ -67,7 +54,30 @@ public class CalendarView extends JPanel {
         promptLabel.setVisible(false);
     }
 
+    /**
+     * This displays the error message that cause the events not to be displayed.
+     * This is caused by invalid email: if user enter an email of the wrong domain (not @gmail.com) or enters no email.
+     * @param message String of the error that is displayed on the UI.
+     */
+    public void displayError(String message) {
+        JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
     public void setCalendarController(CalendarController calendarController) {
         this.calendarController = calendarController;
+    }
+
+    private void loginAction(ActionEvent evt) {
+        if (evt.getSource().equals(loginButton)) {
+            loginButton.setVisible(false);
+            final String email = JOptionPane.showInputDialog(this,
+                    "Enter Email:", "Google Account", JOptionPane.PLAIN_MESSAGE);
+            try {
+                calendarController.execute(email);
+            }
+            catch (GeneralSecurityException | IOException exception) {
+                throw new RuntimeException(exception);
+            }
+        }
     }
 }

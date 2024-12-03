@@ -1,4 +1,4 @@
-package use_cases.note;
+package use_cases.translation;
 
 /**
  * InputBoundary for translation use case.

@@ -1,5 +1,8 @@
 package use_cases.add_task;
 
+/**
+ * This class creates an instance object that is passes into the AddTaskInteractor.
+ */
 public class AddTaskInputData {
     private final String description;
 

@@ -1,16 +1,16 @@
-package interface_adapter.note;
+package interface_adapter.savenote;
 
-import use_cases.note.NoteOutputBoundary;
-import use_cases.note.NoteOutputData;
+import use_cases.savenote.SaveNoteOutputBoundary;
+import use_cases.savenote.SaveNoteOutputData;
 
 /**
  * The presenter for our Note viewing and editing program.
  */
-public class NotePresenter implements NoteOutputBoundary {
+public class SaveNotePresenter implements SaveNoteOutputBoundary {
 
     private final NoteViewModel noteViewModel;
 
-    public NotePresenter(NoteViewModel noteViewModel) {
+    public SaveNotePresenter(NoteViewModel noteViewModel) {
         this.noteViewModel = noteViewModel;
     }
 
@@ -20,7 +20,7 @@ public class NotePresenter implements NoteOutputBoundary {
      * @param result the output data
      */
     @Override
-    public void prepareSuccessView(NoteOutputData result) {
+    public void prepareSuccessView(SaveNoteOutputData result) {
         noteViewModel.getState().setNote(result.getContent());
         noteViewModel.getState().setTitle(result.getTitle());
         noteViewModel.getState().setError(null);

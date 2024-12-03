@@ -1,6 +1,7 @@
 package view;
 
-import javax.swing.*;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  * Default open screen for the program.
