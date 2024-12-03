@@ -21,7 +21,7 @@ public class SaveNoteInteractor implements SaveNoteInputBoundary {
     @Override
     public void execute(SaveNoteInputData saveNoteInputData) {
         if (saveNoteInputData.getTitle() == null || saveNoteInputData.getTitle().isEmpty()) {
-            notePresenter.prepareFailView("Note cannot be saved!");
+            notePresenter.prepareFailView("Note cannot be saved! No Title added!");
         }
         else {
             if (!(inMemoryNoteDataAccessObject.getNotesSaved()).contains(saveNoteInputData.getTitle())) {
