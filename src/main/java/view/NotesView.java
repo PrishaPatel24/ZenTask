@@ -38,8 +38,7 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
     private TranslationController translationController;
     private AiController aiController;
     private SaveNoteController saveNoteController;
-    private TranslationController translationController;
-  
+
     private JLabel noteName;
     private JTextArea noteInputField;
     private JTextArea outputArea;
@@ -133,15 +132,15 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
 
     private void clearText(ActionEvent evt) {
         if (evt.getSource().equals(clearButton)) {
-            saveNoteController.execute(noteInputField.getText(), noteName.getText());
+            noteInputField.setText("");
         }
 
     }
 
     private void deleteNote(ActionEvent evt) {
         if (evt.getSource().equals(deleteButton)) {
-            saveNoteController.execute(noteInputField.getText(), noteName.getText());
             noteName.setText("New Note");
+            noteInputField.setText("");
         }
 
     }

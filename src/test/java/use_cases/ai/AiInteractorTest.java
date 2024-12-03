@@ -15,11 +15,16 @@ public class AiInteractorTest {
     public void successTest() {
         AiOutputBoundary aiOutputBoundary = new AiOutputBoundary() {
             @Override
-            public void updateNote(Note note) {
+            public void updateNote(String note) {
                 assertNotNull(note);
             }
+
+//            @Override
+//            public void updateNote(Note note) {
+//                assertNotNull(note);
+//            }
         };
         AiInteractor aiInteractor = new AiInteractor(aiOutputBoundary, new AiRequest());
-        aiInteractor.generateResponse(new Note("testing Note!", "Note title"));
+        aiInteractor.generateResponse("Note title");
     }
 }
