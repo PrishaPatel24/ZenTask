@@ -15,34 +15,36 @@ public class TranslationFactory {
      * @return NoteOutputData containing the translation
      */
     public static TranslationOutputData translate(TranslationInputData inputData) {
-        // TODO: please could you fix the checkstyle?
         final int characterLimit = 2000;
         final String textToTranslate = inputData.getTextToTranslate();
         final String selectedLanguage = inputData.getSelectedLanguage();
+        final String result;
+        final String result1;
 
         // checking if length of text exceeds char limit
         if (textToTranslate.length() > characterLimit) {
-            return new TranslationOutputData("Exceeded character limit");
+            result1 = "Exceeded character limit";
+        }
+        else {
+            switch (selectedLanguage) {
+                case "Russian":
+                    result1 = Translator.translate(Language.ENGLISH, Language.RUSSIAN, textToTranslate);
+                    break;
+                case "French":
+                    result1 = Translator.translate(Language.ENGLISH, Language.FRENCH, textToTranslate);
+                    break;
+                case "Spanish":
+                    result1 = Translator.translate(Language.ENGLISH, Language.SPANISH, textToTranslate);
+                    break;
+                case "Arabic":
+                    result1 = Translator.translate(Language.ENGLISH, Language.ARABIC, textToTranslate);
+                    break;
+                default:
+                    result1 = textToTranslate;
+            }
         }
 
-        final String translation;
-        switch (selectedLanguage) {
-            case "Russian":
-                translation = Translator.translate(Language.ENGLISH, Language.RUSSIAN, textToTranslate);
-                break;
-            case "French":
-                translation = Translator.translate(Language.ENGLISH, Language.FRENCH, textToTranslate);
-                break;
-            case "Spanish":
-                translation = Translator.translate(Language.ENGLISH, Language.SPANISH, textToTranslate);
-                break;
-            case "Arabic":
-                translation = Translator.translate(Language.ENGLISH, Language.ARABIC, textToTranslate);
-                break;
-            default:
-                translation = textToTranslate;
-        }
-
-        return new TranslationOutputData(translation);
+        result = result1;
+        return new TranslationOutputData(result);
     }
 }
