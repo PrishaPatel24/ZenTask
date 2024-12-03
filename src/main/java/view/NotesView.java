@@ -196,22 +196,17 @@ public class NotesView extends JPanel implements ActionListener, PropertyChangeL
         final JComboBox<String> languageDropdown = new JComboBox<>(languages);
         languageDropdown.setVisible(false);
         tools.add(languageDropdown);
-  
+
         final JButton languageButton = new JButton("Translate");
         languageButton.addActionListener(
-                // TODO: see if you can refactor this or see if you can make it 10 lines (currently 12).
-                //  It is a checkstyle error.
                 evt -> {
-                    if (evt.getSource().equals(languageButton)) {
-                        if (!languageDropdown.isVisible()) {
-                            languageDropdown.setVisible(true);
-                        }
-                        else {
-                            final String selectedLanguage = (String) languageDropdown.getSelectedItem();
-                            final String textInput = outputArea.getText();
-                            translationController.translateNote(textInput, selectedLanguage);
-                            languageDropdown.setVisible(false);
-                        }
+                    if (evt.getSource().equals(languageButton) & !languageDropdown.isVisible()) {
+                        languageDropdown.setVisible(true);
+                    }
+                    else if (evt.getSource().equals(languageButton) & languageDropdown.isVisible()) {
+                        translationController.translateNote(outputArea.getText(), (String)
+                                languageDropdown.getSelectedItem());
+                        languageDropdown.setVisible(false);
                     }
                 }
         );
