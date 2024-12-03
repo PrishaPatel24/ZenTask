@@ -7,12 +7,10 @@ public class SaveNoteOutputData {
 
     private final String title;
     private final String content;
-    private final boolean useCaseFailed;
 
-    public SaveNoteOutputData(String title, String content, boolean useCaseFailed) {
+    public SaveNoteOutputData(String title, String content) {
         this.title = title;
         this.content = content;
-        this.useCaseFailed = useCaseFailed;
     }
 
     public String getContent() {
@@ -23,7 +21,4 @@ public class SaveNoteOutputData {
         return title;
     }
 
-    public boolean isUseCaseFailed() {
-        return useCaseFailed;
-    }
 }

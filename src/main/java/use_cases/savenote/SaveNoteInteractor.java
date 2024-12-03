@@ -20,7 +20,7 @@ public class SaveNoteInteractor implements SaveNoteInputBoundary {
 
     @Override
     public void execute(SaveNoteInputData saveNoteInputData) {
-        if (saveNoteInputData.getTitle() == null || saveNoteInputData.getTitle().isEmpty()) {
+        if (saveNoteInputData.getTitle().isEmpty()) {
             notePresenter.prepareFailView("Note cannot be saved! No Title added!");
         }
         else {
@@ -28,7 +28,7 @@ public class SaveNoteInteractor implements SaveNoteInputBoundary {
                 inMemoryNoteDataAccessObject.saveNote(saveNoteInputData.getTitle(), saveNoteInputData.getContent());
                 final Note note = inMemoryNoteDataAccessObject.getNote(saveNoteInputData.getTitle());
                 final SaveNoteOutputData saveNoteOutputData =
-                        new SaveNoteOutputData(note.getTitle(), note.getContent(), false);
+                        new SaveNoteOutputData(note.getTitle(), note.getContent());
                 notePresenter.prepareSuccessView(saveNoteOutputData);
             }
             else {
@@ -36,9 +36,6 @@ public class SaveNoteInteractor implements SaveNoteInputBoundary {
                         + saveNoteInputData.getTitle() + "already exists!");
             }
 
-            if (inMemoryNoteDataAccessObject.getNote(saveNoteInputData.getTitle()) == null) {
-                notePresenter.prepareFailView("Note did not save!");
-            }
         }
     }
 }
